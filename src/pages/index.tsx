@@ -6,7 +6,7 @@ const Index = () => {
         <Main
             meta={
                 <Meta
-                    title="SEO 메타"
+                    title="GoGo Dev"
                     description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
                 />
             }
