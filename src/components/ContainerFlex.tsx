@@ -17,6 +17,7 @@ interface Props extends BaseChild {
     $paddingDirecion: PMDirection;
 }
 
+/* TODO: 수정 tw에는 dynamic하게 추가할 수 없음. */
 const FlexBox = styled.div((tp: Props) => [
     tw`
         flex-${tp.$direction}
@@ -27,6 +28,9 @@ const FlexBox = styled.div((tp: Props) => [
     tp.$isStretch ? (
         tp.$direction === 'row' ? tw`justify-self-stretch` : tw`items-stretch`
     ) : null,
+    tp.$padding > 0 ? (...[
+
+    ]): null,
     tp.$padding > 0 ? (
         tw`
             ${tp.$paddingDirecion.b ? `pb-${tp.$padding}` : ''}
