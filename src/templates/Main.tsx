@@ -10,7 +10,6 @@ const Main = (props: IMainProps) => (
     <div className="px-1 w-full antialiased text-gray-700">
         {props.meta}
         <div className="mx-auto max-w-screen-md">
-            <div className="border-b border-gray-300">a</div>
             <div className="py-5 text-xl content">{props.children}</div>
         </div>
     </div>

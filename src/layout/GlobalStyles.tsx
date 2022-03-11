@@ -3,10 +3,16 @@ import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
 const customStyles = css({
     html: {
-        ...tw`w-full`,
+        ...tw`
+            w-full
+            h-full
+        `,
     },
     body: {
-        ...tw`w-full`,
+        ...tw`
+            w-full
+            h-full
+        `,
     }
 });
 
