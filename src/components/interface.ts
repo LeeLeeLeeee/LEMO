@@ -1,12 +1,22 @@
 import { ReactNode } from 'react';
 
 export type ContainerDirection = 'column' | 'row';
-export type FlexAlign =
+
+export type AlignType = 'start' | 'center' | 'end';
+
+export type JustifyType =
     | 'start'
     | 'center'
     | 'end'
     | 'between'
     | 'around';
+
+export type ItemsType =
+    | 'start'
+    | 'center'
+    | 'end'
+    | 'baseline'
+    | 'stretch';
 
 export interface PMDirection {
     t?: boolean;

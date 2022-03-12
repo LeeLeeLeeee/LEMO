@@ -1,73 +1,73 @@
 import styled from '@emotion/styled';
+import React from 'react';
 
-import tw from 'twin.macro'
+import tw, { TwStyle } from 'twin.macro'
 
-import { BaseChild, ContainerDirection, FlexAlign, PMDirection } from './interface'
+import { BaseChild, ContainerDirection, PMDirection, ItemsType, JustifyType } from './interface'
 
 interface Props extends BaseChild {
     $direction: ContainerDirection;
-    $hAlign: FlexAlign;
-    $vAlign: FlexAlign;
+    $justify: JustifyType;
+    $items: ItemsType;
     $gap: number;
     $isShadow: boolean;
     $isRadius: boolean;
     $isInline: boolean;
-    $isStretch: boolean;
     $padding: number; /* not px size */
     $paddingDirecion: PMDirection;
 }
 
-/* TODO: 수정 tw에는 dynamic하게 추가할 수 없음. */
-const FlexBox = styled.div((tp: Props) => [
-    tw`
-        flex-${tp.$direction}
-        justify-${tp.$hAlign}
-        items-${tp.$vAlign}
-        ${tp.$isInline ? 'inline-flex' : 'flex'}
-    `,
-    tp.$isStretch ? (
-        tp.$direction === 'row' ? tw`justify-self-stretch` : tw`items-stretch`
-    ) : null,
-    tp.$padding > 0 ? (...[
+const JUSTIFY: { [T in JustifyType]: TwStyle } = {
+    start: tw`justify-start`,
+    around: tw`justify-around`,
+    between: tw`justify-between`,
+    center: tw`justify-center`,
+    end: tw`justify-end`,
+} as const;
 
-    ]): null,
-    tp.$padding > 0 ? (
-        tw`
-            ${tp.$paddingDirecion.b ? `pb-${tp.$padding}` : ''}
-            ${tp.$paddingDirecion.t ? `pt-${tp.$padding}` : ''}
-            ${tp.$paddingDirecion.r ? `pr-${tp.$padding}` : ''}
-            ${tp.$paddingDirecion.l ? `pl-${tp.$padding}` : ''}
-        `
-    ) : null,
+const ITEMS: { [T in ItemsType]: TwStyle } = {
+    start: tw`items-start`,
+    baseline: tw`items-baseline`,
+    stretch: tw`items-stretch`,
+    center: tw`items-center`,
+    end: tw`items-end`,
+} as const;
+
+const FlexBox = styled.div((tp: Props) => [
+    JUSTIFY[tp.$justify],
+    ITEMS[tp.$items],
+    tp.$direction === 'row' ? tw`flex-row` : tw`flex-col`,
+    tp.$isInline ? tw`inline-flex` : tw`flex`,
+    tp.$paddingDirecion.b ? tw`pb-1` : 'pb-0',
+    tp.$paddingDirecion.t ? tw`pt-1` : 'pt-0',
+    tp.$paddingDirecion.r ? tw`pr-1` : 'pr-0',
+    tp.$paddingDirecion.l ? tw`pl-1` : 'pl-0'
 ]);
 
 function FlexContainer(props: Partial<Props>) {
     const {
         $direction = 'row',
-        $hAlign = 'start',
-        $vAlign = 'start',
+        $justify = 'start',
+        $items = 'start',
         $gap = 0,
         $isShadow = false,
         $isRadius = false,
         $isInline = false,
-        $isStretch = false,
         $padding = 0,
         $paddingDirecion,
         children,
     } = props;
 
-    const [horizon, vertical] = $direction === 'row' ? [$hAlign, $vAlign] : [$vAlign, $hAlign];
-
+    
     return (
         <FlexBox
             $direction={$direction}
-            $hAlign={horizon}
-            $vAlign={vertical}
+            $justify={$justify}
+            $items={$items}
             $gap={$gap}
             $isShadow={$isShadow}
             $isRadius={$isRadius}
             $isInline={$isInline}
-            $isStretch={$isStretch}
             $padding={$padding}
             $paddingDirecion={
                 $paddingDirecion || {
@@ -83,4 +83,4 @@ function FlexContainer(props: Partial<Props>) {
     )
 }
 
-export default FlexContainer;
+export default React.memo(FlexContainer);

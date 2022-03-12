@@ -10,8 +10,9 @@ type IMainProps = {
 const Main = (props: IMainProps) => (
     <>
         {props.meta}
-        <FlexContainer>
-            aaaa
+        <FlexContainer $justify='end'>
+            <div>aa</div>
+            <div>c</div>
         </FlexContainer>
     </>
 );
