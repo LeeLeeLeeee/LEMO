@@ -1,9 +1,10 @@
+import { TAILWIND_MARGIN, TAILWIND_PADDING } from '@/const/tailwind';
 import styled from '@emotion/styled';
 import React from 'react';
 
 import tw, { TwStyle } from 'twin.macro'
 
-import { BaseChild, ContainerDirection, PMDirection, ItemsType, JustifyType } from './interface'
+import { BaseChild, ContainerDirection, PMDirection, ItemsType, JustifyType } from '../interface'
 
 interface Props extends BaseChild {
     $direction: ContainerDirection;
@@ -38,10 +39,10 @@ const FlexBox = styled.div((tp: Props) => [
     ITEMS[tp.$items],
     tp.$direction === 'row' ? tw`flex-row` : tw`flex-col`,
     tp.$isInline ? tw`inline-flex` : tw`flex`,
-    tp.$paddingDirecion.b ? tw`pb-1` : 'pb-0',
-    tp.$paddingDirecion.t ? tw`pt-1` : 'pt-0',
-    tp.$paddingDirecion.r ? tw`pr-1` : 'pr-0',
-    tp.$paddingDirecion.l ? tw`pl-1` : 'pl-0'
+    tp.$paddingDirecion.b ? TAILWIND_PADDING.bottom[tp.$padding] : 'pb-0',
+    tp.$paddingDirecion.t ? TAILWIND_PADDING.top[tp.$padding] : 'pt-0',
+    tp.$paddingDirecion.r ? TAILWIND_PADDING.right[tp.$padding] : 'pr-0',
+    tp.$paddingDirecion.l ? TAILWIND_PADDING.left[tp.$padding] : 'pl-0'
 ]);
 
 function FlexContainer(props: Partial<Props>) {
@@ -83,4 +84,4 @@ function FlexContainer(props: Partial<Props>) {
     )
 }
 
-export default React.memo(FlexContainer);
+export default FlexContainer;
