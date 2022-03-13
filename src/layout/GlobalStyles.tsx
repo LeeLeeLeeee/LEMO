@@ -13,6 +13,12 @@ const customStyles = css({
             w-full
             h-full
         `,
+    },
+    '#__next': {
+        ...tw`
+            w-full
+            h-full
+        `,
     }
 });
 
