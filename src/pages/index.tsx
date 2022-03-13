@@ -1,9 +1,9 @@
+import MainLayout from '@/layout/Layout';
 import { Meta } from '@/layout/Meta';
-import { Main } from '@/templates/Main';
 
 const Index = () => {
     return (
-        <Main
+        <MainLayout
             meta={
                 <Meta
                     title="GoGo Dev"
@@ -12,7 +12,7 @@ const Index = () => {
             }
         >
             aaa
-        </Main>
+        </MainLayout>
     );
 };
 
