@@ -9,13 +9,13 @@
       "request": "launch",
       "name": "Next: Chrome",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}/front"
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Next: Node",
-      "program": "${workspaceFolder}/node_modules/.bin/next",
+      "program": "${workspaceFolder}/front/node_modules/.bin/next",
       "args": ["dev"],
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**"],
