@@ -59,8 +59,6 @@
   },
   "license": "ISC",
   "babelMacros": {
-      "twin": {
-          
-      }
+    "twin": {}
   }
 }

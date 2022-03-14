@@ -1,15 +1,15 @@
 import React from 'react';
 import { ReactNode } from 'react';
 import tw from 'twin.macro';
-import ContainerFlex from '@/components/common/ContainerFlex';
-import { PM_SIZE } from '@/const/tailwind';
+import FlexContainer from '@/components/common/ContainerFlex';
 
 const LayoutContainer = tw.div`
     flex
     pl-48
     pr-48
     h-full
-    pt-14
+    pt-16
+    bg-gray-200
 `;
 
 interface Props {
@@ -23,10 +23,9 @@ function MainLayout(props: Props) {
         <>
             {meta}
             <LayoutContainer>
-                <ContainerFlex $padding={PM_SIZE.small} $paddingDirecion={{t: true}}>
-                    aa
+                <FlexContainer $isStretch >
                     {children}
-                </ContainerFlex>
+                </FlexContainer>
             </LayoutContainer>
         </>
     );

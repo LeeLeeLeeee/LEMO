@@ -14,6 +14,7 @@ interface Props extends BaseChild {
     $isShadow: boolean;
     $isRadius: boolean;
     $isInline: boolean;
+    $isStretch: boolean;
     $padding: number; /* not px size */
     $paddingDirecion: PMDirection;
 }
@@ -39,6 +40,7 @@ const FlexBox = styled.div((tp: Props) => [
     ITEMS[tp.$items],
     tp.$direction === 'row' ? tw`flex-row` : tw`flex-col`,
     tp.$isInline ? tw`inline-flex` : tw`flex`,
+    tp.$isStretch ? tw`flex-auto` : '',
     tp.$paddingDirecion.b ? TAILWIND_PADDING.bottom[tp.$padding] : 'pb-0',
     tp.$paddingDirecion.t ? TAILWIND_PADDING.top[tp.$padding] : 'pt-0',
     tp.$paddingDirecion.r ? TAILWIND_PADDING.right[tp.$padding] : 'pr-0',
@@ -56,6 +58,7 @@ function FlexContainer(props: Partial<Props>) {
         $isInline = false,
         $padding = 0,
         $paddingDirecion,
+        $isStretch = false,
         children,
     } = props;
 
@@ -70,6 +73,7 @@ function FlexContainer(props: Partial<Props>) {
             $isRadius={$isRadius}
             $isInline={$isInline}
             $padding={$padding}
+            $isStretch={$isStretch}
             $paddingDirecion={
                 $paddingDirecion || {
                     t: true,

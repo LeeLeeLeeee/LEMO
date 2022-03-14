@@ -8,13 +8,13 @@ const Header = tw.div`
     flex
     pl-48
     pr-48
-    bg-gray-500
+    bg-white
 `;
 
 function HeaderComponent() {
     return (
         <Header>
-            aaaa
+            <div>YHLEE</div>
         </Header>
     )
 }

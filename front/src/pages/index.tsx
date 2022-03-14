@@ -1,3 +1,5 @@
+import HomeContent from '@/components/home/HomeContent';
+import NavigationBar from '@/components/home/NavigationBar';
 import MainLayout from '@/layout/Layout';
 import { Meta } from '@/layout/Meta';
 
@@ -11,7 +13,8 @@ const Index = () => {
                 />
             }
         >
-            aaa
+            <NavigationBar />
+            <HomeContent />
         </MainLayout>
     );
 };
