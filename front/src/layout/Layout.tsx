@@ -9,6 +9,7 @@ const LayoutContainer = tw.div`
     pr-48
     h-full
     pt-16
+    pb-4
     bg-gray-200
 `;
 

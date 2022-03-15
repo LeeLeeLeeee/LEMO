@@ -1,18 +1,17 @@
-import styled from '@emotion/styled';
 import React from 'react';
-import tw from 'twin.macro';
-import FlexContainer from '../common/ContainerFlex';
+import tw, { theme } from 'twin.macro';
+import ContainerFlex from '../common/ContainerFlex';
 
-console.log(FlexContainer);
-const NavigationWrapper = styled(FlexContainer)`
-    background-color: black;
+const NavigationWrapper = tw(ContainerFlex)`
+    bg-gray-500
+    w-52
+    h-full
 `;
-console.log(NavigationWrapper);
 
 function NavigationBar(): JSX.Element {
 
     return (
-        <NavigationWrapper $direction='column' >
+        <NavigationWrapper $paddingDirecion={{b: true}}>
             <div>aaa</div>
         </NavigationWrapper>
     );

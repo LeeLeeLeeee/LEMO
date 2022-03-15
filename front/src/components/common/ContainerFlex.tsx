@@ -35,57 +35,32 @@ const ITEMS: { [T in ItemsType]: TwStyle } = {
     end: tw`items-end`,
 } as const;
 
-const FlexBox = styled.div((tp: Props) => [
-    JUSTIFY[tp.$justify],
-    ITEMS[tp.$items],
-    tp.$direction === 'row' ? tw`flex-row` : tw`flex-col`,
-    tp.$isInline ? tw`inline-flex` : tw`flex`,
-    tp.$isStretch ? tw`flex-auto` : '',
-    tp.$paddingDirecion.b ? TAILWIND_PADDING.bottom[tp.$padding] : 'pb-0',
-    tp.$paddingDirecion.t ? TAILWIND_PADDING.top[tp.$padding] : 'pt-0',
-    tp.$paddingDirecion.r ? TAILWIND_PADDING.right[tp.$padding] : 'pr-0',
-    tp.$paddingDirecion.l ? TAILWIND_PADDING.left[tp.$padding] : 'pl-0'
+const ContainerFlex = styled.div(({
+    $direction = 'row',
+    $justify = 'start',
+    $items = 'start',
+    $gap = 0,
+    $isShadow = false,
+    $isRadius = false,
+    $isInline = false,
+    $padding = 0,
+    $paddingDirecion = {
+        t: true,
+        b: true,
+        l: true,
+        r: true,
+    },
+    $isStretch = false,
+}: Partial<Props>) => [
+    JUSTIFY[$justify],
+    ITEMS[$items],
+    $direction === 'row' ? tw`flex-row` : tw`flex-col`,
+    $isInline ? tw`inline-flex` : tw`flex`,
+    $isStretch ? tw`flex-auto` : '',
+    $paddingDirecion.b ? TAILWIND_PADDING.bottom[$padding] : 'pb-0',
+    $paddingDirecion.t ? TAILWIND_PADDING.top[$padding] : 'pt-0',
+    $paddingDirecion.r ? TAILWIND_PADDING.right[$padding] : 'pr-0',
+    $paddingDirecion.l ? TAILWIND_PADDING.left[$padding] : 'pl-0'
 ]);
 
-function FlexContainer(props: Partial<Props>) {
-    const {
-        $direction = 'row',
-        $justify = 'start',
-        $items = 'start',
-        $gap = 0,
-        $isShadow = false,
-        $isRadius = false,
-        $isInline = false,
-        $padding = 0,
-        $paddingDirecion,
-        $isStretch = false,
-        children,
-    } = props;
-
-    
-    return (
-        <FlexBox
-            $direction={$direction}
-            $justify={$justify}
-            $items={$items}
-            $gap={$gap}
-            $isShadow={$isShadow}
-            $isRadius={$isRadius}
-            $isInline={$isInline}
-            $padding={$padding}
-            $isStretch={$isStretch}
-            $paddingDirecion={
-                $paddingDirecion || {
-                    t: true,
-                    b: true,
-                    l: true,
-                    r: true,
-                }
-            }
-        >
-            {children}
-        </FlexBox>
-    )
-}
-
-export default FlexContainer;
+export default React.memo(ContainerFlex);
