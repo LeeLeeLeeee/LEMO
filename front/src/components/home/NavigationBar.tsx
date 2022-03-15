@@ -3,7 +3,6 @@ import tw, { theme } from 'twin.macro';
 import ContainerFlex from '../common/ContainerFlex';
 
 const NavigationWrapper = tw(ContainerFlex)`
-    bg-gray-500
     w-52
     h-full
 `;
@@ -11,7 +10,7 @@ const NavigationWrapper = tw(ContainerFlex)`
 function NavigationBar(): JSX.Element {
 
     return (
-        <NavigationWrapper $paddingDirecion={{b: true}}>
+        <NavigationWrapper >
             <div>aaa</div>
         </NavigationWrapper>
     );

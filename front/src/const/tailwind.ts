@@ -4,9 +4,18 @@ export const PM_SIZE = {
     none: 0,
     xsmall: 1,
     small: 2,
-    default: 4,
+    medium: 4,
     large: 10,
     xlarge: 20,
+} as const;
+
+export const GAP_SIZE = {
+    none: 0,
+    xsmall: 1,
+    small: 2,
+    medium: 3,
+    large: 4,
+    xlarge: 5,
 } as const;
 
 export const TAILWIND_PADDING = {
@@ -284,3 +293,14 @@ export const TAILWIND_MARGIN = {
         tw`mb-56`,
     ],
 } as const;
+
+export const TAILWIND_GAP = {
+    all: [
+        tw`gap-0`,
+        tw`gap-1`,
+        tw`gap-2`,
+        tw`gap-3`,
+        tw`gap-4`,
+        tw`gap-5`,
+    ]
+}

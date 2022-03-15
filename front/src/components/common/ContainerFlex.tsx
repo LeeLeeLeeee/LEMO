@@ -1,4 +1,4 @@
-import { TAILWIND_MARGIN, TAILWIND_PADDING } from '@/const/tailwind';
+import { TAILWIND_GAP, TAILWIND_PADDING } from '@/const/tailwind';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -57,6 +57,9 @@ const ContainerFlex = styled.div(({
     $direction === 'row' ? tw`flex-row` : tw`flex-col`,
     $isInline ? tw`inline-flex` : tw`flex`,
     $isStretch ? tw`flex-auto` : '',
+    $isShadow ? tw`shadow-sm` : '',
+    $isRadius ? tw`rounded-md` : '',
+    TAILWIND_GAP.all[$gap],
     $paddingDirecion.b ? TAILWIND_PADDING.bottom[$padding] : 'pb-0',
     $paddingDirecion.t ? TAILWIND_PADDING.top[$padding] : 'pt-0',
     $paddingDirecion.r ? TAILWIND_PADDING.right[$padding] : 'pr-0',

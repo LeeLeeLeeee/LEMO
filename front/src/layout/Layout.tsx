@@ -2,6 +2,7 @@ import React from 'react';
 import { ReactNode } from 'react';
 import tw from 'twin.macro';
 import FlexContainer from '@/components/common/ContainerFlex';
+import { GAP_SIZE } from '@/const/tailwind';
 
 const LayoutContainer = tw.div`
     flex
@@ -10,7 +11,7 @@ const LayoutContainer = tw.div`
     h-full
     pt-16
     pb-4
-    bg-gray-200
+    bg-gray-100
 `;
 
 interface Props {
@@ -24,7 +25,7 @@ function MainLayout(props: Props) {
         <>
             {meta}
             <LayoutContainer>
-                <FlexContainer $isStretch >
+                <FlexContainer $isStretch $gap={GAP_SIZE.medium}>
                     {children}
                 </FlexContainer>
             </LayoutContainer>
