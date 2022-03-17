@@ -22,7 +22,7 @@ const ProfileCard = styled(ContainerFlex)`
 `;
 
 const NameTitle = styled.div(({}) => [
-    tw`self-stretch pb-1 mt-5 text-primary font-bold `,
+    tw`self-stretch text-primary font-bold `,
     {fontSize: theme`fontSize.lg`},
 ]);
 
@@ -30,7 +30,7 @@ const SubTitle = styled.div(({}) => [
     {fontSize: theme`fontSize.sm`},
     tw`self-stretch text-secondary`,
 ]);
-console.log(theme`colors.red.500`);
+
 function NavigationBar(): JSX.Element {
 
     return (
@@ -40,6 +40,7 @@ function NavigationBar(): JSX.Element {
                 $isRadius
                 $isShadow
                 $direction='column'
+                $justify='between'
                 $padding={5}
                 $isStretch
                 color='white'
@@ -48,12 +49,19 @@ function NavigationBar(): JSX.Element {
                 <span>
                     <Image src='/스폰지밥.PNG' width={100} height={100} />
                 </span>
-                <NameTitle>
-                    이영현
-                </NameTitle>
-                <SubTitle>
-                    Web Developer
-                </SubTitle>
+                <ContainerFlex tw='self-stretch' $direction='column'>
+                    <NameTitle>
+                        이영현
+                    </NameTitle>
+                    <SubTitle>
+                        Web Developer
+                    </SubTitle>
+                    <ContainerFlex tw='self-stretch mt-2' $justify='start' $gap={2}>
+                        <i data-eva='at-outline' data-eva-fill={theme`colors.primary`} data-eva-height="20" data-eva-width="20"/>
+                        <i data-eva='github' data-eva-fill={theme`colors.primary`} data-eva-height="20" data-eva-width="20"/>
+                        <i data-eva='phone-outline' data-eva-fill={theme`colors.primary`} data-eva-height="20" data-eva-width="20"/>
+                    </ContainerFlex>
+                </ContainerFlex>
             </ProfileCard>
         </NavigationWrapper>
     );
