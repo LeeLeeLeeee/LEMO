@@ -12,10 +12,12 @@ a:hover {
 
 @tailwind utilities;
 
-.content p {
-  @apply my-6;
+.light {
+    --color-primary: 73 83 113;
+    --color-secondary: 116 149 154;
 }
 
-.content ul {
-  @apply my-6;
+.dark {
+    --color-primary: 215 233 247;
+    --color-secondary: 249 243 223;
 }

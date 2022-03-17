@@ -9,6 +9,7 @@ const Header = tw.div`
     pl-48
     pr-48
     bg-white
+    dark:bg-black
 `;
 
 function HeaderComponent() {

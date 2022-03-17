@@ -1,17 +1,60 @@
 import React from 'react';
 import tw, { theme } from 'twin.macro';
 import ContainerFlex from '../common/ContainerFlex';
+import Image from 'next/image';
+import styled from '@emotion/styled';
+
 
 const NavigationWrapper = tw(ContainerFlex)`
-    w-52
+    w-64
     h-full
 `;
 
+const ProfileCard = styled(ContainerFlex)`
+    ${tw`bg-white/80`}
+    ${tw`h-72`}
+    & > span {
+        width: 100px;
+        border-radius: 100px;
+        overflow: hidden;
+        ${tw`shadow-lg`}
+    }
+`;
+
+const NameTitle = styled.div(({}) => [
+    tw`self-stretch pb-1 mt-5 text-primary font-bold `,
+    {fontSize: theme`fontSize.lg`},
+]);
+
+const SubTitle = styled.div(({}) => [
+    {fontSize: theme`fontSize.sm`},
+    tw`self-stretch text-secondary`,
+]);
+console.log(theme`colors.red.500`);
 function NavigationBar(): JSX.Element {
 
     return (
         <NavigationWrapper >
-            <div>aaa</div>
+            <ProfileCard
+                $isInline
+                $isRadius
+                $isShadow
+                $direction='column'
+                $padding={5}
+                $isStretch
+                color='white'
+                $items='center'
+            >
+                <span>
+                    <Image src='/스폰지밥.PNG' width={100} height={100} />
+                </span>
+                <NameTitle>
+                    이영현
+                </NameTitle>
+                <SubTitle>
+                    Web Developer
+                </SubTitle>
+            </ProfileCard>
         </NavigationWrapper>
     );
 }
