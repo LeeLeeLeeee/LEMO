@@ -6,12 +6,12 @@ import { GAP_SIZE } from '@/const/tailwind';
 
 const LayoutContainer = tw.div`
     flex
-    pl-48
-    pr-48
+    pl-96
+    pr-96
     h-full
     pt-16
     pb-4
-    bg-gray-100
+    bg-gray-200
 `;
 
 interface Props {

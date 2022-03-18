@@ -10,7 +10,11 @@ type ThemeMode = 'dark' | 'light';
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const [mode, setMode] = useState<ThemeMode>('light');
     useEffect(() => {
-        eva.replace();
+        eva.replace({
+            type: 'zoom',
+            hover: true,
+            infinite: true,
+        });
     }, []);
     return (
         <div className={mode} style={{ width: '100%', height: '100%'}}>
