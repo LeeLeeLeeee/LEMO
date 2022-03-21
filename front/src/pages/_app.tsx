@@ -4,10 +4,12 @@ import '../styles/global.css';
 import HeaderComponent from '@/components/common/Header';
 import { useState, useEffect } from 'react';
 import * as eva from "eva-icons";
-
-type ThemeMode = 'dark' | 'light';
+import { ThemeMode } from '@/stores/interface';
+import { Provider } from 'react-redux'
+import { useStore } from '@/stores/store';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+    const store = useStore(pageProps.initialReduxState)
     const [mode, setMode] = useState<ThemeMode>('light');
     useEffect(() => {
         eva.replace({
@@ -17,11 +19,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         });
     }, []);
     return (
-        <div className={mode} style={{ width: '100%', height: '100%'}}>
-            <GlobalStyles />
-            <HeaderComponent />
-            <Component {...pageProps} />
-        </div>
+        <Provider store={store}>
+            <div className={mode} style={{ width: '100%', height: '100%'}}>
+                <GlobalStyles />
+                <HeaderComponent />
+                <Component {...pageProps} />
+            </div>
+        </Provider>
     )
 };
 
