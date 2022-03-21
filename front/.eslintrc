@@ -36,7 +36,7 @@
             "tabWidth": 4
           }
         ],
-        "import/no-extraneous-dependencies": false,
+        "import/no-extraneous-dependencies": 0,
         "indent": ["error", 4],
         "react/destructuring-assignment": "off", // Vscode doesn't support automatically destructuring, it's a pain to add a new variable
         "jsx-a11y/anchor-is-valid": "off", // Next.js use his own internal link system

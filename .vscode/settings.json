@@ -30,5 +30,6 @@
         "tw`([^`]*)", // tw`...`
         "tw\\.[^`]+`([^`]*)`", // tw.xxx<xxx>`...`
         "tw\\(.*?\\).*?`([^`]*)" // tw(Component)<xxx>`...`
-    ]
+    ],
+    "eslint.workingDirectories": [".", "./front"]
 }
