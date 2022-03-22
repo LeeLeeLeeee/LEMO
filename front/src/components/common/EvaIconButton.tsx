@@ -6,6 +6,7 @@ interface Props {
     iconType: string;
     color?: string;
     size?: number;
+    onClick?: () => void;
 }
 
 const IConButton = styled.button<Partial<Props>>`

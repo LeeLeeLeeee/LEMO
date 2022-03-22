@@ -5,10 +5,6 @@ export interface SettingState {
     mode: ThemeMode
 }
 
-export interface SettingThemeModeProp {
-    mode: ThemeMode,
-}
-
 export interface CombinedState {
     setting: SettingState
 }

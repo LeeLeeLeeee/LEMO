@@ -10,7 +10,7 @@ export default (state = initialState, action: SettingActions): SettingState => {
         case SettingActionTypes.CHANGE_THEME_MODE: {
             return {
                 ...state,
-                mode: action.payload.mode,
+                mode: action.payload,
             }
         }
         default: {

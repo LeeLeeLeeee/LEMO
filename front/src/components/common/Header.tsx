@@ -1,3 +1,4 @@
+import { useSettingsDispatch, useSettingsState } from "@/stores/setting/hook";
 import React from "react";
 import tw from "twin.macro";
 import EvaIconButton from "./EvaIconButton";
@@ -15,12 +16,20 @@ const Header = tw.div`
 `;
 
 function HeaderComponent() {
+    const { mode } = useSettingsState();
+    const { setThemeMode } = useSettingsDispatch();
+    const handleLightClick = () => {
+        setThemeMode('dark');
+    }
+    const handleMoonClick = () => {
+        setThemeMode('light');
+    }
+    console.log(mode);
     return (
         <Header>
             <div>YHLEE</div>
             <div>
-                <EvaIconButton iconType='sun' color='#ffffff' />
-                {/* <i data-eva='moon' data-eva-height='20' data-eva-width='20' /> */}
+                {mode === 'light' ? <EvaIconButton onClick={handleLightClick} iconType='sun' color='#ffffff' /> : <EvaIconButton onClick={handleMoonClick} iconType='moon' color='#ffffff' />}
             </div>
         </Header>
     )
