@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { AppProps } from 'next/app';
 import '../styles/global.css';
 import { Provider } from 'react-redux';
-import * as eva from 'eva-icons';
 
 import HeaderComponent from '@/components/common/Header';
 import { useStore } from '@/stores/store';
@@ -22,13 +21,7 @@ const AppWrapper = React.memo((props: BaseChild) => {
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const store = useStore(pageProps.initialReduxState);
-    useEffect(() => {
-        eva.replace({
-            type: 'zoom',
-            hover: true,
-            infinite: true,
-        });
-    }, []);
+
     return (
         <Provider store={store}>
             <AppWrapper>
