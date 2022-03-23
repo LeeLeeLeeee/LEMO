@@ -6,7 +6,9 @@
         "onSave": "test-file"
     },
     "search.exclude": {
-        "package-lock.json": true
+        "package-lock.json": true,
+        "**/node_modules": true,
+        "front/.next": true,
     },
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": false,
@@ -31,5 +33,18 @@
         "tw\\.[^`]+`([^`]*)`", // tw.xxx<xxx>`...`
         "tw\\(.*?\\).*?`([^`]*)" // tw(Component)<xxx>`...`
     ],
-    "eslint.workingDirectories": [".", "./front"]
+    "eslint.probe": [
+        "javascript",
+        "typescript",
+        "typescriptreact"
+    ],
+    "eslint.onIgnoredFiles": "warn",
+    "eslint.workingDirectories": [
+        {
+            "directory": "${cwd}",
+        },
+        {
+            "pattern": "front"
+        }
+    ],
 }
