@@ -1,4 +1,4 @@
-import tw from "twin.macro";
+import tw from 'twin.macro';
 
 export const PM_SIZE = {
     none: 0,
@@ -295,12 +295,5 @@ export const TAILWIND_MARGIN = {
 } as const;
 
 export const TAILWIND_GAP = {
-    all: [
-        tw`gap-0`,
-        tw`gap-1`,
-        tw`gap-2`,
-        tw`gap-3`,
-        tw`gap-4`,
-        tw`gap-5`,
-    ]
-}
+    all: [tw`gap-0`, tw`gap-1`, tw`gap-2`, tw`gap-3`, tw`gap-4`, tw`gap-5`],
+};

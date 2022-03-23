@@ -1,7 +1,11 @@
-import { useSettingsDispatch, useSettingsState } from "@/stores/setting/hook";
-import React from "react";
-import tw from "twin.macro";
-import EvaIconButton from "./EvaIconButton";
+import React from 'react';
+
+import tw from 'twin.macro';
+
+import { useSettingsDispatch, useSettingsState } from '@/stores/setting/hook';
+import { MoonIcon, SunIcon } from '@/icons';
+
+import IconButton from './button/IconButton';
 
 const Header = tw.div`
     fixed
@@ -20,19 +24,29 @@ function HeaderComponent() {
     const { setThemeMode } = useSettingsDispatch();
     const handleLightClick = () => {
         setThemeMode('dark');
-    }
+    };
     const handleMoonClick = () => {
         setThemeMode('light');
-    }
+    };
     console.log(mode);
     return (
         <Header>
             <div>YHLEE</div>
             <div>
-                {mode === 'light' ? <EvaIconButton onClick={handleLightClick} iconType='sun' color='#ffffff' /> : <EvaIconButton onClick={handleMoonClick} iconType='moon' color='#ffffff' />}
+                {mode === 'light' ? (
+                    <IconButton
+                        onClick={handleLightClick}
+                        iconNode={<SunIcon />}
+                    />
+                ) : (
+                    <IconButton
+                        onClick={handleMoonClick}
+                        iconNode={<MoonIcon />}
+                    />
+                )}
             </div>
         </Header>
-    )
+    );
 }
 
 export default React.memo(HeaderComponent);

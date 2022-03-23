@@ -4,19 +4,9 @@ export type ContainerDirection = 'column' | 'row';
 
 export type AlignType = 'start' | 'center' | 'end';
 
-export type JustifyType =
-    | 'start'
-    | 'center'
-    | 'end'
-    | 'between'
-    | 'around';
+export type JustifyType = 'start' | 'center' | 'end' | 'between' | 'around';
 
-export type ItemsType =
-    | 'start'
-    | 'center'
-    | 'end'
-    | 'baseline'
-    | 'stretch';
+export type ItemsType = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
 
 export interface PMDirection {
     t?: boolean;
@@ -26,9 +16,22 @@ export interface PMDirection {
 }
 
 export interface BaseChild {
-    children?: ReactNode
+    children?: ReactNode;
 }
 
 export interface BaseChildren {
-    children?: ReactNode[]
+    children?: ReactNode[];
 }
+
+export type DivAttributeProps = React.HTMLAttributes<HTMLDivElement>;
+export type ButtonAttributeProps = React.HTMLAttributes<HTMLButtonElement>;
+export type SpanAttributeProps = React.HTMLAttributes<HTMLSpanElement>;
+
+export type ColorType =
+    | 'primary'
+    | 'secondary'
+    | 'error'
+    | 'success'
+    | 'info'
+    | 'dark'
+    | 'light';
