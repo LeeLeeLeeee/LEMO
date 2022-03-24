@@ -2,7 +2,7 @@ import { SettingState } from '../interface';
 import { SettingActionTypes, SettingActions } from './actions';
 
 const initialState: SettingState = {
-    mode: 'light'
+    mode: 'dark'
 }
 
 export default (state = initialState, action: SettingActions): SettingState => {
