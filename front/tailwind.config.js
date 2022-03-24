@@ -1,13 +1,12 @@
 function withOpacityValue(variable) {
     return ({ opacityValue }) => {
-      if (opacityValue === undefined) {
-        return `rgb(var(${variable}))`
-      }
-      return `rgb(var(${variable}) / ${opacityValue})`
-    }
+        if (opacityValue === undefined) {
+            return `rgb(var(${variable}))`;
+        }
+        return `rgb(var(${variable}) / ${opacityValue})`;
+    };
 }
 
-  
 module.exports = {
     content: ['./src/**/*.{js,ts,jsx,tsx}'],
     darkMode: 'class',
@@ -53,5 +52,5 @@ module.exports = {
             },
         },
     },
-  plugins: [],
+    plugins: [],
 };

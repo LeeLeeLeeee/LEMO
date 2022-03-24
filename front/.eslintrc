@@ -36,6 +36,7 @@
             "tabWidth": 4
           }
         ],
+        "react/display-name": "off",
         "import/no-extraneous-dependencies": 0,
         "indent": ["error", 4],
         "react/destructuring-assignment": "off", // Vscode doesn't support automatically destructuring, it's a pain to add a new variable
@@ -56,10 +57,6 @@
             ],
             "pathGroupsExcludedImportTypes": ["react"],
             "newlines-between": "always",
-            "alphabetize": {
-              "order": "asc",
-              "caseInsensitive": true
-            }
           }
         ],
         "@typescript-eslint/comma-dangle": "off", // Avoid conflict rule between Eslint and Prettier
