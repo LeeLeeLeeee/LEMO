@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  post_service_db:
+    container_name: postgres_db
+    image: postgres:10-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_DB: post_service
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432
+    volumes:
+      - post_service_db:/var/lib/postgresql/data
+    networks:
+      - service_bridge
+      
+  pgadmin:
+    container_name: web_db_admin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: yhlee@naver.com
+      PGADMIN_DEFAULT_PASSWORD: 123123
+    ports:
+      - 5050:80
+    networks:
+      - service_bridge
+
+volumes:
+  post_service_db:
+
+networks:
+  service_bridge:
