@@ -1,6 +1,7 @@
-import React from 'react';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
+
 import tw from 'twin.macro';
+
 import FlexContainer from '@/components/common/ContainerFlex';
 import { GAP_SIZE } from '@/const/tailwind';
 
@@ -9,7 +10,7 @@ const LayoutContainer = tw.div`
     pl-96
     pr-96
     h-full
-    pt-20
+    pt-24
     pb-4
     bg-gray-200
 `;

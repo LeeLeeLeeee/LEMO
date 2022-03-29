@@ -1,10 +1,9 @@
-
 export type ThemeMode = 'dark' | 'light';
 
 export interface SettingState {
-    mode: ThemeMode
+    mode: ThemeMode;
 }
 
 export interface CombinedState {
-    setting: SettingState
+    setting: SettingState;
 }
