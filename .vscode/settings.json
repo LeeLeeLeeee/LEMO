@@ -1,50 +1,43 @@
 {
-    "editor.tabSize": 4,
-    "editor.detectIndentation": false,
-    "jest.autoRun": {
-        "watch": false,
-        "onSave": "test-file"
+  "editor.tabSize": 4,
+  "editor.detectIndentation": false,
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file"
+  },
+  "search.exclude": {
+    "package-lock.json": true,
+    "**/node_modules": true,
+    "front/.next": true
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": ["source.addMissingImports"],
+  // Multiple language settings for json and jsonc files
+  "[json][jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript", // if you are using typescript
+    "typescriptreact": "javascript" // if you are using typescript with react
+  },
+  "editor.quickSuggestions": {
+    "strings": true // forces VS Code to trigger completions when editing "string" content
+  },
+  "tailwindCSS.experimental.classRegex": [
+    "tw`([^`]*)", // tw`...`
+    "tw\\.[^`]+`([^`]*)`", // tw.xxx<xxx>`...`
+    "tw\\(.*?\\).*?`([^`]*)" // tw(Component)<xxx>`...`
+  ],
+  "eslint.probe": ["javascript", "typescript", "typescriptreact"],
+  "eslint.onIgnoredFiles": "warn",
+  "eslint.workingDirectories": [
+    {
+      "directory": "${cwd}"
     },
-    "search.exclude": {
-        "package-lock.json": true,
-        "**/node_modules": true,
-        "front/.next": true,
-    },
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": [
-        "source.addMissingImports",
-        "source.fixAll.eslint"
-    ],
-    // Multiple language settings for json and jsonc files
-    "[json][jsonc]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "tailwindCSS.includeLanguages": {
-        "typescript": "javascript", // if you are using typescript
-        "typescriptreact": "javascript" // if you are using typescript with react
-    },
-    "editor.quickSuggestions": {
-        "strings": true // forces VS Code to trigger completions when editing "string" content
-    },
-    "tailwindCSS.experimental.classRegex": [
-        "tw`([^`]*)", // tw`...`
-        "tw\\.[^`]+`([^`]*)`", // tw.xxx<xxx>`...`
-        "tw\\(.*?\\).*?`([^`]*)" // tw(Component)<xxx>`...`
-    ],
-    "eslint.probe": [
-        "javascript",
-        "typescript",
-        "typescriptreact"
-    ],
-    "eslint.onIgnoredFiles": "warn",
-    "eslint.workingDirectories": [
-        {
-            "directory": "${cwd}",
-        },
-        {
-            "pattern": "front"
-        }
-    ],
+    {
+      "pattern": "front"
+    }
+  ]
 }
