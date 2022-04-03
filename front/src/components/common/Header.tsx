@@ -28,7 +28,7 @@ function HeaderComponent() {
     const handleMoonClick = () => {
         setThemeMode('light');
     };
-    console.log(mode);
+
     return (
         <Header>
             <div>YHLEE</div>
