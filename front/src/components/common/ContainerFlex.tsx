@@ -60,6 +60,7 @@ const ContainerFlex = styled.div(
         },
         $isStretch = false,
     }: Partial<Props>) => [
+        tw`box-border`,
         JUSTIFY[$justify],
         ITEMS[$items],
         $direction === 'row' ? tw`flex-row` : tw`flex-col`,
