@@ -14,6 +14,7 @@ module.exports = withBundleAnalyzer({
     // So, the source code is "basePath-ready".
     // You can remove `basePath` if you don't need it.
     reactStrictMode: true,
+    experimental: { esmExternals: true },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,

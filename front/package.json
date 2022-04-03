@@ -17,7 +17,7 @@
     "@emotion/react": "^11.8.2",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
-    "codejar": "^3.5.0",
+    "codejar-compat": "^3.2.2",
     "highlight.js": "^11.5.0",
     "marked": "^4.0.12",
     "next": "^12.1.0",
@@ -29,6 +29,7 @@
     "styled-jsx-plugin-postcss": "^4.0.1"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.17.7",
     "@emotion/babel-plugin": "^11.7.2",
     "@next/bundle-analyzer": "^12.1.0",
     "@svgr/webpack": "^6.2.1",
@@ -37,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "autoprefixer": "^10.4.2",
+    "babel-loader": "^8.2.4",
     "babel-plugin-macros": "^3.1.0",
     "cross-env": "^7.0.3",
     "cssnano": "^5.0.17",
