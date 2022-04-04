@@ -35,11 +35,13 @@ function HeaderComponent() {
             <div>
                 {mode === 'light' ? (
                     <IconButton
+                        color="light"
                         onClick={handleLightClick}
                         iconNode={<SunIcon />}
                     />
                 ) : (
                     <IconButton
+                        color="light"
                         onClick={handleMoonClick}
                         iconNode={<MoonIcon />}
                     />
