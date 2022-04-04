@@ -1,4 +1,6 @@
-import tw from 'twin.macro';
+import tw, { TwStyle } from 'twin.macro';
+
+import { ColorType } from '@/components/interface';
 
 export const PM_SIZE = {
     none: 0,
@@ -17,6 +19,26 @@ export const GAP_SIZE = {
     large: 4,
     xlarge: 5,
 } as const;
+
+export const BG_COLOR: Record<ColorType, TwStyle> = {
+    primary: tw`bg-primary`,
+    dark: tw`bg-black`,
+    error: tw`bg-error`,
+    info: tw`bg-blue-300`,
+    light: tw`bg-blue-50`,
+    secondary: tw`bg-secondary`,
+    success: tw`bg-success`,
+};
+
+export const FONT_COLOR: Record<ColorType, TwStyle> = {
+    primary: tw`text-primary`,
+    dark: tw`text-black`,
+    error: tw`text-error`,
+    info: tw`text-blue-300`,
+    light: tw`text-blue-50`,
+    secondary: tw`text-secondary`,
+    success: tw`text-success`,
+};
 
 export const TAILWIND_PADDING = {
     all: [
