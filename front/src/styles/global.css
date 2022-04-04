@@ -15,9 +15,13 @@ a:hover {
 .light {
     --color-primary: 73 83 113;
     --color-secondary: 116 149 154;
+    --color-success: 151 219 174;
+    --color-error: 244 187 187;
 }
 
 .dark {
     --color-primary: 215 233 247;
     --color-secondary: 249 243 223;
+    --color-success: 151 219 174;
+    --color-error: 244 187 187;
 }

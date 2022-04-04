@@ -1,6 +1,7 @@
 // babel-plugin-macros.config.js
 module.exports = {
     twin: {
-      // add options here
+        config: 'tailwind.config.js',
+        preset: 'emotion',
     },
-}
+};
