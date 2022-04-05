@@ -4,8 +4,16 @@ import { SaveIcon } from '@/icons';
 import IconButton from '@/components/common/button/IconButton';
 import ContainerFlex from '@/components/common/ContainerFlex';
 import Toggle from '@/components/common/Toggle';
+import { usePostingDispatch, usePostingState } from '@/stores/posting/hook';
 
 function MarkDownMenu(): JSX.Element {
+    const {
+        setting: { preview },
+    } = usePostingState();
+    const { changePreview } = usePostingDispatch();
+    const changePreviewState = () => {
+        changePreview(!preview);
+    };
     return (
         <ContainerFlex
             $padding={1}
@@ -15,7 +23,7 @@ function MarkDownMenu(): JSX.Element {
             className="w-full"
         >
             <IconButton color="light" iconNode={<SaveIcon />} />
-            <Toggle />
+            <Toggle isOn={preview} onToggleClick={changePreviewState} />
         </ContainerFlex>
     );
 }
