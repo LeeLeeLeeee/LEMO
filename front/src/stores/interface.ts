@@ -6,6 +6,9 @@ export interface SettingState {
 
 export interface PostingState {
     code: string;
+    setting: {
+        preview: boolean;
+    };
 }
 
 export interface CombinedState {

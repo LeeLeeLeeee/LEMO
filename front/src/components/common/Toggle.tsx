@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from '@emotion/styled';
 import tw from 'twin.macro';
@@ -14,20 +14,24 @@ const ToggleWrapper = tw.div`
     ring-primary
     cursor-pointer
 `;
+
 const StatusBall = styled.div(() => [
-    tw`rounded-xl w-[20px] h-[20px] transition-transform`,
+    tw`rounded-xl w-[20px] h-[20px] transition-transform ease-in-out`,
 ]);
-function Toggle(): JSX.Element {
-    const [isOn, setIsOn] = useState(false);
-    const onToggleClick = () => {
-        setIsOn((on: boolean) => !on);
-    };
+
+interface Props {
+    isOn: boolean;
+    onToggleClick: () => void;
+}
+
+function Toggle(props: Props): JSX.Element {
+    const { isOn, onToggleClick } = props;
 
     return (
         <ToggleWrapper onClick={onToggleClick}>
             <StatusBall
                 className={
-                    isOn ? 'bg-secondary/25' : 'bg-primary translate-x-[27px]'
+                    !isOn ? 'bg-secondary/25' : 'bg-primary translate-x-[27px]'
                 }
             />
         </ToggleWrapper>

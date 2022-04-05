@@ -16,7 +16,12 @@ export function usePostingDispatch() {
         dispatch(postingActions.changeThemeMode(code));
     }, []);
 
+    const changePreview = useCallback((mode: boolean) => {
+        dispatch(postingActions.changePreview(mode));
+    }, []);
+
     return {
         updateCode,
+        changePreview,
     };
 }

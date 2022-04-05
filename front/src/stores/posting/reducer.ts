@@ -2,7 +2,10 @@ import { PostingState } from '../interface';
 import { PostingActions, PostingActionsTypes } from './action';
 
 const initialState: PostingState = {
-    code: 'xxxxxxxxx',
+    code: '',
+    setting: {
+        preview: false,
+    },
 };
 
 export default function PostingReducer(
@@ -13,7 +16,15 @@ export default function PostingReducer(
         case PostingActionsTypes.CHANGE_CODE: {
             return {
                 ...state,
-                code: action.payload,
+                code: action.payload.code,
+            };
+        }
+        case PostingActionsTypes.CHANGE_PREVIEW: {
+            return {
+                ...state,
+                setting: {
+                    preview: action.payload.mode,
+                },
             };
         }
         default: {
