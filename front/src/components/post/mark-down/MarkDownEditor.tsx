@@ -23,7 +23,12 @@ const EditorElement = styled.div`
     }
 `;
 
-function MarkDownEditor(): JSX.Element {
+interface Props {
+    width: number;
+    resizeMode: boolean;
+}
+
+function MarkDownEditor(props: Props): JSX.Element {
     const editor = useRef<HTMLDivElement>(null);
     const codeJar = useRef<any>(null);
     const { code } = usePostingState();
