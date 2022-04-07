@@ -75,7 +75,11 @@ function PostWriteComponent() {
                 $justify="center"
             >
                 <MarkDownMenu />
-                <ContainerFlex ref={wrapperElement} className="w-full h-full">
+                <ContainerFlex
+                    $gap={1}
+                    ref={wrapperElement}
+                    className="w-full h-full"
+                >
                     {preview ? (
                         <ResizableBox
                             className="relative"

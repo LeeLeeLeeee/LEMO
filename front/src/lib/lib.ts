@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import marked from 'marked';
+import { marked } from 'marked';
 import hljs from 'highlight.js';
 
 import { escape } from './escape';
@@ -40,3 +40,5 @@ const renderer: { code: any; options?: any } = {
 };
 
 marked.use({ renderer });
+
+export default marked;
