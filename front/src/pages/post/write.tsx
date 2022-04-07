@@ -13,6 +13,9 @@ import { Meta } from '@/layout/Meta';
 import MarkDownEditor from '@/components/post/mark-down/MarkDownEditor';
 import MarkDownMenu from '@/components/post/mark-down/MarkDownMenu';
 import ContainerFlex from '@/components/common/ContainerFlex';
+import { ResizeIcon } from '@/icons';
+import { usePostingState } from '@/stores/posting/hook';
+import MarkDownPreview from '@/components/post/mark-down/MarkDownPreview';
 
 const PostingContainer = styled(ContainerFlex)`
     height: 100%;
@@ -22,18 +25,21 @@ const ResizeHandler = styled.span`
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: black;
-    right: 0px;
-    top: 0px;
+    right: -10px;
+    top: -20px;
     cursor: e-resize;
 `;
 
 function PostWriteComponent() {
-    const wrapperElement = useRef<HTMLDivElement>();
+    const wrapperElement = useRef<any>();
     const [size, setSize] = useState({
         width: 700,
         height: 0,
     });
+
+    const {
+        setting: { preview },
+    } = usePostingState();
 
     const onResize = (event: any) => {
         const { left } = wrapperElement.current?.getBoundingClientRect() || {
@@ -45,7 +51,7 @@ function PostWriteComponent() {
             width: Math.min(clientX - left, 700),
         }));
     };
-
+    console.log(size);
     useLayoutEffect(() => {
         const { height } = wrapperElement.current?.getBoundingClientRect() || {
             height: 0,
@@ -70,24 +76,31 @@ function PostWriteComponent() {
             >
                 <MarkDownMenu />
                 <ContainerFlex ref={wrapperElement} className="w-full h-full">
-                    <ResizableBox
-                        className="relative"
-                        width={size.width}
-                        height={size.height}
-                        axis="x"
-                        handle={<ResizeHandler />}
-                        onResize={(e: SyntheticEvent) => onResize(e)}
-                    >
-                        {/* <MarkDownEditor /> */}
-                    </ResizableBox>
-                    <div>
-                        <span className="text">
-                            {
-                                'Raw use of <Resizable> element with controlled position. Resize and reposition in all directions.'
+                    {preview ? (
+                        <ResizableBox
+                            className="relative"
+                            width={size.width}
+                            height={size.height}
+                            maxConstraints={[700, Infinity]}
+                            axis="x"
+                            handle={
+                                preview ? (
+                                    <ResizeHandler>
+                                        <ResizeIcon />
+                                    </ResizeHandler>
+                                ) : (
+                                    <></>
+                                )
                             }
-                        </span>
-                    </div>
-                    {/* <MarkDownPreview /> */}
+                            onResize={(e: SyntheticEvent) => onResize(e)}
+                        >
+                            <MarkDownEditor resizeMode width={size.width} />
+                        </ResizableBox>
+                    ) : (
+                        <MarkDownEditor />
+                    )}
+
+                    {preview && <MarkDownPreview />}
                 </ContainerFlex>
             </PostingContainer>
         </MainLayout>

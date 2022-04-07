@@ -24,16 +24,17 @@ const EditorElement = styled.div`
 `;
 
 interface Props {
-    width: number;
-    resizeMode: boolean;
+    width?: number;
+    resizeMode?: boolean;
 }
 
 function MarkDownEditor(props: Props): JSX.Element {
     const editor = useRef<HTMLDivElement>(null);
+    const { width, resizeMode } = props;
     const codeJar = useRef<any>(null);
     const { code } = usePostingState();
     const { updateCode } = usePostingDispatch();
-
+    const widthStyle = resizeMode ? { width: `${width}px` } : {};
     useEffect(() => {
         const mdEditor = editor.current as HTMLElement;
         if (mdEditor !== null) {
@@ -46,7 +47,13 @@ function MarkDownEditor(props: Props): JSX.Element {
         }
     }, []);
 
-    return <EditorElement className="hljs editor" ref={editor} />;
+    return (
+        <EditorElement
+            style={widthStyle}
+            className="hljs editor"
+            ref={editor}
+        />
+    );
 }
 
 export default React.memo(MarkDownEditor);
