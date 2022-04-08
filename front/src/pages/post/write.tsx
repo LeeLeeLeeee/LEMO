@@ -1,9 +1,4 @@
-import React, {
-    SyntheticEvent,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
+import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { ResizableBox } from 'react-resizable';
@@ -51,8 +46,8 @@ function PostWriteComponent() {
             width: Math.min(clientX - left, 700),
         }));
     };
-    console.log(size);
-    useLayoutEffect(() => {
+
+    useEffect(() => {
         const { height } = wrapperElement.current?.getBoundingClientRect() || {
             height: 0,
         };

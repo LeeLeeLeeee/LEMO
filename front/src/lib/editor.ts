@@ -14,3 +14,5 @@ export const highligher = (editor: HTMLElement) => {
     const code: string = editor.textContent || '';
     editor.innerHTML = hljs.highlightAuto(code, ['markdown']).value;
 };
+
+export { hljs };

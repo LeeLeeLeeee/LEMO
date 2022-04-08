@@ -9,6 +9,7 @@ import { useStore } from '@/stores/store';
 import { useSettingsState } from '@/stores/setting/hook';
 import { BaseChild } from '@/components/interface';
 import GlobalStyles from '@/layout/GlobalStyles';
+import '@/styles/MarkDownPreview.scss';
 
 const AppWrapper = React.memo((props: BaseChild) => {
     const { mode } = useSettingsState();

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { marked } from 'marked';
-import hljs from 'highlight.js';
 
+import { hljs } from './editor';
 import { escape } from './escape';
 
 marked.setOptions({
@@ -15,27 +15,28 @@ marked.setOptions({
 
 const renderer: { code: any; options?: any } = {
     code(code: string, infostring: string, escaped?: boolean) {
-        const lang = (infostring || '').match(/\S*/)![0];
+        const lang = (infostring || '').match(/\S*/)![0] || '';
         if (this.options.highlight) {
-            const out = this.options.highlight(code, lang);
-            if (out != null && out !== code) {
-                escaped = true;
-                code = out;
+            if (['javascript', 'markdown', 'go', 'plaintext'].includes(lang)) {
+                const out = this.options.highlight(code, lang);
+                if (out != null && out !== code) {
+                    escaped = true;
+                    code = out;
+                }
             }
         }
 
         code = `${code.replace(/\n$/, '')}\n`;
 
         if (!lang) {
-            return `<pre class='codeblock'${
+            return `<pre data-lang="text" class='codeblock'${
                 escaped ? code : escape(code, true)
             }</pre>\n`;
         }
-
-        return `<pre class="codeblock ${this.options.langPrefix}${escape(
-            lang,
-            true
-        )}">${escaped ? code : escape(code, true)}</pre>\n`;
+        console.log(this.options.langPrefix);
+        return `<pre data-lang="${escape(lang, true)}" class="codeblock ${
+            this.options.langPrefix
+        }${escape(lang, true)}">${escaped ? code : escape(code, true)}</pre>\n`;
     },
 };
 

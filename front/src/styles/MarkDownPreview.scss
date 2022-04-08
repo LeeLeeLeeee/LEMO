@@ -1,0 +1,124 @@
+.markdown-preview {
+    margin: 0 auto;
+    width: 100%;
+    padding: 20px 30px;
+    font-size: 14px;
+    line-height: calc(14px * 1.8);
+    height: 100%;
+    & h1 {
+        font-size: 24px !important;
+        font-weight: 600;
+        margin: 0.67em 0;
+    }
+    & h2 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    & h3 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    & h4,
+    & h5,
+    & h6 {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    & ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    & hr {
+        padding: 10px;
+        border: 0;
+        border-top: 1px solid #ced4da;
+    }
+    & .tag::before {
+        content: "#";
+        color: #dee2e6;
+    }
+    & .tag {
+        background-color: #868e96;
+        color: #fbfbfb;
+        border-radius: 50px;
+        padding: 5px 9px;
+        display: inline;
+        font-size: 12px;
+    }
+    & p {
+        line-height: 1.8em;
+    }
+    & code::before,
+    & code::after {
+        content: "`";
+        color: #ced4da;
+        padding: 1px;
+    }
+    & code {
+        background-color: #ffffff;
+        border: 1px solid #dee2e6;
+        padding: 3px;
+        font-family: "Consolas", monospace;
+    }
+    & .codeblock::before {
+        content: attr(data-lang);
+        display: block;
+        color: rgb(var(--color-primary));
+        padding-bottom: 5px;
+    }
+    & .codeblock {
+        color: #495057;
+        background-color: #ffffff;
+        border: 1px solid #dee2e6;
+        padding: 5px 10px;
+        font-family: "Consolas", monospace;
+        line-height: 1.5em;
+        border-radius: 3px;
+    }
+    & blockquote {
+        border-left: 3px solid #495057;
+        background-color: #dee2e6;
+        padding-left: 10px;
+    }
+    & u::before,
+    & u::after {
+        content: "\00a0\00a0";
+        color: #adb5bd;
+    }
+    & u {
+        text-decoration-color: #adb5bd;
+    }
+    & b::before,
+    & b::after {
+        content: "*";
+        color: #ced4da;
+        font-weight: normal;
+    }
+    & b {
+        font-weight: 600;
+    }
+    & i::before,
+    & i::after {
+        content: "/";
+        color: #ced4da;
+    }
+    & a::before,
+    & a::after {
+        content: "";
+        color: #adb5bd;
+    }
+    & a {
+        color: #495057;
+        text-decoration: underline;
+        transition: 0.3s;
+    }
+    & a:hover {
+        color: #adb5bd;
+        transition: 0.3s;
+    }
+    & s {
+        color: #868e96;
+        text-decoration-color: #868e96;
+    }
+}
