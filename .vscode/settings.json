@@ -38,6 +38,9 @@
     },
     {
       "pattern": "front"
+    },
+    {
+      "pattern": "server"
     }
   ]
 }
