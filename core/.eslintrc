@@ -5,12 +5,14 @@
     // Configuration for TypeScript files
     {
       "files": ["**/*.ts"],
+      "excludedFiles": ["./tsconfig.json"],
       "plugins": ["@typescript-eslint"],
       "extends": ["airbnb-typescript"],
       "parserOptions": {
         "project": "./tsconfig.json"
       },
       "rules": {
+        "class-methods-use-this": "off",
         "react/jsx-filename-extension": "off",
         "@typescript-eslint/indent": ["error", 4],
         "import/no-extraneous-dependencies": 0,

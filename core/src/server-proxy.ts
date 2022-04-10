@@ -18,3 +18,25 @@ serverProxy.interceptors.request.use((config) => config, (error) => {
         console.log(error);
     }
 });
+
+serverProxy.interceptors.response.use((response) => {
+    if (response.data instanceof Array) {
+        response.data = changeCase.camelArray(
+            response.data,
+            { recursive: true, arrayRecursive: true }
+        );
+    } else {
+        response.data = changeCase.camelKeys(
+            response.data,
+            { recursive: true, arrayRecursive: true }
+        );
+    }
+
+    return response;
+}, (error) => {
+    if (isDebug) {
+        console.log(error);
+    }
+});
+
+export default serverProxy;
