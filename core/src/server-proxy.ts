@@ -11,6 +11,7 @@ const serverProxy = Axios.create({
     },
     timeout: 5000,
     responseType: 'json',
+    withCredentials: true,
 });
 
 serverProxy.interceptors.request.use((config) => config, (error) => {
