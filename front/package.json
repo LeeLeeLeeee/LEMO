@@ -27,7 +27,8 @@
     "react-resizable": "^3.0.4",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
-    "styled-jsx-plugin-postcss": "^4.0.1"
+    "styled-jsx-plugin-postcss": "^4.0.1",
+    "core": "file:../core"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",

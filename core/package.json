@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
-    "change-object-case": "^0.2.1"
+    "change-object-case": "^0.2.1",
+    "server-module": "file:../server"
   }
 }
