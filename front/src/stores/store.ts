@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { useMemo } from 'react';
 
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
@@ -46,4 +46,12 @@ export const initializeStore = (preloadedState: CombinedState) => {
 export function useStore(initialState: CombinedState) {
     const _store = useMemo(() => initializeStore(initialState), [initialState]);
     return _store;
+}
+
+export function getReduxStore(): Store {
+    if (store) {
+        return store;
+    }
+
+    throw new Error("Store isn't created yet");
 }
