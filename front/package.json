@@ -18,17 +18,19 @@
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
     "codejar-compat": "^3.2.2",
+    "core": "file:../core",
     "highlight.js": "^11.5.0",
     "marked": "^4.0.12",
     "next": "^12.1.0",
     "next-seo": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.29.0",
     "react-resizable": "^3.0.4",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
     "styled-jsx-plugin-postcss": "^4.0.1",
-    "core": "file:../core"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",
