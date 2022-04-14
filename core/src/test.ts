@@ -1,1 +1,1 @@
-const a: any = 3;
+const a: any = 35;
