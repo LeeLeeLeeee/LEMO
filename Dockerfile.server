@@ -1,0 +1,4 @@
+FROM node:lts-slim AS front
+
+COPY package*.json /tmp/
+COPY front/package*.json /tmp/front
