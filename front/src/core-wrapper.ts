@@ -1,4 +1,4 @@
-import _core from 'core';
+import _core from 'core/src/index';
 import { CoreInstanceInterface } from 'core/src/interface';
 
 const core: CoreInstanceInterface = _core;
