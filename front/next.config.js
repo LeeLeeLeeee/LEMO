@@ -25,6 +25,25 @@ module.exports = withBundleAnalyzer({
             test: /\.svg$/,
             use: ['@svgr/webpack'],
         });
+        config.module.rules.push({
+            test: /\.ts$/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env', '@babel/typescript'],
+                },
+            },
+        });
         return config;
+    },
+    async rewrites() {
+        return process.env.NODE_ENV === 'development'
+            ? [
+                  {
+                      source: '/api/:path*',
+                      destination: 'http://localhost:3000/api/:path',
+                  },
+              ]
+            : [];
     },
 });
