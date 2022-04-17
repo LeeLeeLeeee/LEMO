@@ -1,5 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Post as PostDto } from 'server-module/node_modules/@prisma/client';
+import { CreatePostDto } from 'server-module/src/interfaces';
 
 export interface ApiHandler<T> {
     getList: (option: Partial<T>) => Promise<AxiosResponse<T[], any>>,
@@ -21,4 +22,4 @@ export type CoreInstanceInterface = {
     }
 };
 
-export type { PostDto };
+export type { PostDto, CreatePostDto };

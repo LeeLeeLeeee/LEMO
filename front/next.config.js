@@ -20,6 +20,9 @@ module.exports = withBundleAnalyzer({
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },
+    env: {
+        API_ENDPOINT: 'http://localhost:3001',
+    },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,
@@ -40,7 +43,7 @@ module.exports = withBundleAnalyzer({
         return process.env.NODE_ENV === 'development'
             ? [
                   {
-                      source: '/api/:path*',
+                      source: '/api/:path',
                       destination: 'http://localhost:3000/api/:path',
                   },
               ]

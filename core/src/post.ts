@@ -7,14 +7,14 @@ export default class Post implements ApiHandler<PostDto> {
 
     async create(data: Partial<PostDto>) {
         const response = await serverProxy.post<PostDto>(this.apiName, {
-            data
+            ...data
         });
         return response;
     }
 
     async update(id: number, data: Partial<PostDto>) {
         const response = await serverProxy.put<PostDto>(`${this.apiName}/${id}`, {
-            data
+            ...data
         });
         return response;
     }
