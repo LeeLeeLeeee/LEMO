@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { ResizableBox } from 'react-resizable';
+import { useForm } from 'react-hook-form';
 
 import MainLayout from '@/layout/Layout';
 import { Meta } from '@/layout/Meta';
@@ -11,6 +12,7 @@ import ContainerFlex from '@/components/common/ContainerFlex';
 import { ResizeIcon } from '@/icons';
 import { usePostingState } from '@/stores/posting/hook';
 import MarkDownPreview from '@/components/post/mark-down/MarkDownPreview';
+import Input from '@/components/common/forms/Input';
 
 const PostingContainer = styled(ContainerFlex)`
     height: 100%;
@@ -27,6 +29,7 @@ const ResizeHandler = styled.span`
 
 function PostWriteComponent() {
     const wrapperElement = useRef<any>();
+    const { control, formState } = useForm();
     const [size, setSize] = useState({
         width: 700,
         height: 0,
@@ -53,7 +56,7 @@ function PostWriteComponent() {
         };
         setSize((_size) => ({ ..._size, height }));
     }, []);
-
+    console.log(formState);
     return (
         <MainLayout
             meta={
@@ -65,11 +68,19 @@ function PostWriteComponent() {
         >
             <PostingContainer
                 $padding={0}
+                $gap={2}
                 $isStretch
                 $direction="column"
                 $justify="center"
             >
                 <MarkDownMenu />
+                <Input
+                    style={{ width: '100%', marginBottom: '15px' }}
+                    control={control}
+                    name="title"
+                    label="제목"
+                    type="text"
+                />
                 <ContainerFlex
                     $gap={1}
                     ref={wrapperElement}

@@ -8,6 +8,8 @@ export type JustifyType = 'start' | 'center' | 'end' | 'between' | 'around';
 
 export type ItemsType = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
 
+export type SizeType = 'small' | 'medium' | 'large';
+
 export interface PMDirection {
     t?: boolean;
     b?: boolean;
@@ -26,6 +28,7 @@ export interface BaseChildren {
 export type DivAttributeProps = React.HTMLAttributes<HTMLDivElement>;
 export type ButtonAttributeProps = React.HTMLAttributes<HTMLButtonElement>;
 export type SpanAttributeProps = React.HTMLAttributes<HTMLSpanElement>;
+export type InputAttributeProps = React.HTMLAttributes<HTMLInputElement>;
 
 export type ColorType =
     | 'primary'
