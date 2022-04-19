@@ -17,6 +17,7 @@
     "@emotion/react": "^11.8.2",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
+    "@hookform/resolvers": "^2.8.8",
     "codejar-compat": "^3.2.2",
     "core": "file:../core",
     "highlight.js": "^11.5.0",
