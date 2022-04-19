@@ -22,7 +22,7 @@ const IconButtonBase = styled.button<Pick<Props, 'color'>>(
 function IconButton(props: Props): JSX.Element {
     const { iconNode, ...rest } = props;
     return (
-        <IconButtonBase className="hover:bg-white" {...rest}>
+        <IconButtonBase type="button" className="hover:bg-white" {...rest}>
             {iconNode}
         </IconButtonBase>
     );

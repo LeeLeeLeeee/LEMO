@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { useDispatch } from 'react-redux';
+import { useFormContext } from 'react-hook-form';
+
 import { SaveIcon } from '@/icons';
 import IconButton from '@/components/common/button/IconButton';
 import ContainerFlex from '@/components/common/ContainerFlex';
@@ -8,12 +11,27 @@ import { usePostingDispatch, usePostingState } from '@/stores/posting/hook';
 
 function MarkDownMenu(): JSX.Element {
     const {
+        code,
         setting: { preview },
     } = usePostingState();
-    const { changePreview } = usePostingDispatch();
+    const { changePreview, savePostThunk } = usePostingDispatch();
+    const { handleSubmit } = useFormContext();
+    const dispatch = useDispatch();
     const changePreviewState = () => {
         changePreview(!preview);
     };
+
+    const handleSaveClick = (props: any) => {
+        const { title } = props;
+        dispatch(
+            savePostThunk({
+                email: 'ijj1792@naver.com',
+                content: code,
+                title,
+            })
+        );
+    };
+
     return (
         <ContainerFlex
             $padding={1}
@@ -22,7 +40,11 @@ function MarkDownMenu(): JSX.Element {
             $isStretch
             className="w-full"
         >
-            <IconButton color="light" iconNode={<SaveIcon />} />
+            <IconButton
+                color="light"
+                onClick={handleSubmit(handleSaveClick)}
+                iconNode={<SaveIcon />}
+            />
             <Toggle isOn={preview} onToggleClick={changePreviewState} />
         </ContainerFlex>
     );

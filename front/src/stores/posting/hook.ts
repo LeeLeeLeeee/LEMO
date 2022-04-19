@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { PostDto } from 'core/src/interface';
+import { CreatePostDto } from 'core/src/interface';
 
 import { ThunkAction } from '@/lib/redux';
 import getCore from '@/core-wrapper';
@@ -26,8 +26,8 @@ export function usePostingDispatch() {
         dispatch(postingActions.changePreview(mode));
     }, []);
 
-    const savePostAsync = useCallback(
-        (data: PostDto, id?: number): ThunkAction =>
+    const savePostThunk = useCallback(
+        (data: CreatePostDto, id?: number): ThunkAction =>
             async (thunkDispatch) => {
                 thunkDispatch(postingActions.savePost());
                 try {
@@ -47,6 +47,6 @@ export function usePostingDispatch() {
     return {
         updateCode,
         changePreview,
-        savePostAsync,
+        savePostThunk,
     };
 }

@@ -10,8 +10,6 @@ const ToggleWrapper = tw.div`
     bg-white
     rounded-[50px]
     shadow-sm
-    ring-2
-    ring-primary
     cursor-pointer
 `;
 

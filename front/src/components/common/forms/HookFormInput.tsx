@@ -30,6 +30,7 @@ const InputLabel = styled.label<Props>`
     font-size: ${(props) => FONT_SIZE[props.inputSize || 'medium']};
     padding: ${(props) => PADDING[props.inputSize || 'medium']};
     box-sizing: border-box;
+    margin-bottom: 20px;
     ${tw`
         relative
         bg-white
@@ -40,7 +41,7 @@ const InputLabel = styled.label<Props>`
     `}
 
     &:focus-within,
-    &.has-value {
+    &.input-has-value {
         ${tw`border-transparent`}
         & > span {
             top: 20%;
@@ -49,6 +50,13 @@ const InputLabel = styled.label<Props>`
         box-shadow: rgba(var(--color-primary) / 90) 0px 4px 8px -2px,
             rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     }
+
+    &.input-has-error {
+        border: 1px solid rgb(var(--color-error));
+        box-shadow: rgba(var(--color-error) / 90) 0px 4px 8px -2px,
+            rgba(var(--color-error)) 0px 0px 0px 1px;
+    }
+
     & > span {
         ${tw`text-sm text-gray-500 absolute`}
         top: 50%;
@@ -56,6 +64,11 @@ const InputLabel = styled.label<Props>`
         transform: translate(-50%, -50%);
         transition: top 0.1s ease-in-out;
     }
+
+    &.input-has-error > span {
+        ${tw`text-red-500`}
+    }
+
     & > input {
         padding-top: ${(props) => FONT_SIZE[props.inputSize || 'medium']};
         ${tw`w-full`}
@@ -67,7 +80,17 @@ const InputElement = tw.input`
     focus-visible:outline-none
 `;
 
-function Input(props: Omit<Props, 'placeholder'>): JSX.Element {
+const InputErrorTextElement = tw.div`
+    h-5
+    leading-5
+    text-red-500
+    text-sm
+    absolute
+    left-[5px]
+    bottom-[-22px]
+`;
+
+function HookFormInput(props: Omit<Props, 'placeholder'>): JSX.Element {
     const {
         label,
         inputSize = 'medium',
@@ -78,8 +101,10 @@ function Input(props: Omit<Props, 'placeholder'>): JSX.Element {
         defaultValue = '',
         ...rest
     } = props;
+
     const {
         field: { value, ref, onChange, onBlur },
+        fieldState: { error },
     } = useController({
         name,
         control,
@@ -87,22 +112,31 @@ function Input(props: Omit<Props, 'placeholder'>): JSX.Element {
     });
 
     return (
-        <InputLabel
-            className={value && 'has-value'}
-            style={style}
-            inputSize={inputSize}
-        >
-            {label && <span>{label}</span>}
-            <InputElement
-                type={type}
-                value={value}
-                ref={ref}
-                onChange={onChange}
-                onBlur={onBlur}
-                {...rest}
-            />
-        </InputLabel>
+        <>
+            <InputLabel
+                className={`${value && !error && 'input-has-value'} ${
+                    error && 'input-has-error'
+                }`}
+                style={style}
+                inputSize={inputSize}
+            >
+                {label && <span>{label}</span>}
+                <InputElement
+                    type={type}
+                    value={value}
+                    ref={ref}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    {...rest}
+                />
+                {error && (
+                    <InputErrorTextElement>
+                        {error.message}
+                    </InputErrorTextElement>
+                )}
+            </InputLabel>
+        </>
     );
 }
 
-export default React.memo(Input);
+export default React.memo(HookFormInput);
