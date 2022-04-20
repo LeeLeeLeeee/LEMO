@@ -34,6 +34,7 @@ module.exports = withBundleAnalyzer({
                 loader: 'babel-loader',
                 options: {
                     presets: ['@babel/preset-env', '@babel/typescript'],
+                    plugins: ['@babel/transform-runtime'],
                 },
             },
         });
@@ -43,8 +44,8 @@ module.exports = withBundleAnalyzer({
         return process.env.NODE_ENV === 'development'
             ? [
                   {
-                      source: '/api/:path',
-                      destination: 'http://localhost:3000/api/:path',
+                      source: '/api/:path*',
+                      destination: 'http://localhost:3000/api/:path*',
                   },
               ]
             : [];

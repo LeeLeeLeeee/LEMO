@@ -21,11 +21,12 @@
   },
   "homepage": "https://github.com/LeeLeeLeeee/NextJS#readme",
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "babel-loader": "^8.0.6",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-typescript": "^7.6.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^16.1.0",
@@ -42,5 +43,8 @@
     "lint-staged": "^12.3.7",
     "micromatch": "^4.0.5",
     "sass": "^1.50.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.17.9"
   }
 }
