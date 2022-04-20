@@ -1,4 +1,4 @@
-import { ApiHandler } from 'interface';
+import { ApiHandler, FileUploadType } from 'interface';
 import { Post as PostDto } from 'server-module/node_modules/@prisma/client';
 import serverProxy from './server-proxy';
 
@@ -33,6 +33,18 @@ export default class Post implements ApiHandler<PostDto> {
 
     async getById(id: number) {
         const response = await serverProxy.get<PostDto>(`${this.apiName}/${id}`);
+        return response;
+    }
+
+    async uploadImage(image: File) {
+        const formData = new FormData();
+        formData.append('image', image);
+        const response = await serverProxy.post<FileUploadType>(`${this.apiName}/upload`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            onUploadProgress: (progresEvent) => console.log(progresEvent),
+        });
         return response;
     }
 }

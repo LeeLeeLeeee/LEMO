@@ -3,13 +3,20 @@ import {
     Controller,
     Delete,
     Get,
+    HttpException,
+    HttpStatus,
     Param,
     ParseIntPipe,
     Post,
     Put,
+    UploadedFile,
+    UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Post as PostModel } from '@prisma/client';
 import { CreatePostDto } from 'interfaces';
+import { editFileName, imageFileFilter } from 'lib/file';
+import { diskStorage } from 'multer';
 import { PostService } from './post.service';
 
 @Controller('post')
@@ -30,7 +37,7 @@ export class PostController {
         return this.postService.post({ id });
     }
 
-    @Get('fileter/:searchString')
+    @Get('filter/:searchString')
     async getFilteredPosts(
         @Param('searchString') searchString: string,
     ): Promise<PostModel[]> {
@@ -58,6 +65,36 @@ export class PostController {
                 connect: { email },
             },
         });
+    }
+
+    /* TODO: 추후 CDN으로 변경 */
+    @Post('upload')
+    @UseInterceptors(
+        FileInterceptor('image', {
+            storage: diskStorage({
+                destination: './upload',
+                filename: editFileName,
+            }),
+            fileFilter: imageFileFilter,
+        }),
+    )
+    async uploadFile(
+        @Body() _: any,
+        @UploadedFile() file: Express.Multer.File,
+    ) {
+        if (!file?.filename) {
+            throw new HttpException(
+                {
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
+                    message: '이미지 저장 실패',
+                },
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+        return {
+            originalName: file.originalname,
+            filename: file.filename,
+        };
     }
 
     @Put('/:id')
