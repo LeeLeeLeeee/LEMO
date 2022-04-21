@@ -33,7 +33,6 @@ const renderer: { code: any; options?: any } = {
                 escaped ? code : escape(code, true)
             }</pre>\n`;
         }
-        console.log(this.options.langPrefix);
         return `<pre data-lang="${escape(lang, true)}" class="codeblock ${
             this.options.langPrefix
         }${escape(lang, true)}">${escaped ? code : escape(code, true)}</pre>\n`;
