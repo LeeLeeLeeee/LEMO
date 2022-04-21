@@ -5,11 +5,14 @@ import { CreatePostDto } from 'core/src/interface';
 
 import { ThunkAction } from '@/lib/redux';
 import getCore from '@/core-wrapper';
+import { createImageMarkDownSymbol } from '@/lib/editor';
 
 import { CombinedState, PostingState } from '../interface';
 import { postingActions } from './action';
+import { getReduxStore } from '../store';
 
 const core = getCore();
+const reduxStore = getReduxStore();
 
 export function usePostingState(): PostingState {
     return useSelector((state: CombinedState) => state.posting);
@@ -24,6 +27,26 @@ export function usePostingDispatch() {
 
     const changePreview = useCallback((mode: boolean) => {
         dispatch(postingActions.changePreview(mode));
+    }, []);
+
+    const setCodeJarInstance = useCallback((codeJar: any) => {
+        dispatch(postingActions.setCodeJarInstance(codeJar));
+    }, []);
+
+    const uploadImage = useCallback(async (file: File) => {
+        try {
+            if (file?.type.includes('image')) {
+                const {
+                    posting: { code, codeJarInstance },
+                } = reduxStore.getState();
+                const data = await core.post.uploadImage(file);
+                const imageText = createImageMarkDownSymbol(data.filename);
+                codeJarInstance.updateCode(`${code}\n ${imageText}`);
+                updateCode(`${code}\n ${imageText}`);
+            }
+        } catch (error) {
+            /* TODO: Error Handling */
+        }
     }, []);
 
     const savePostThunk = useCallback(
@@ -48,5 +71,7 @@ export function usePostingDispatch() {
         updateCode,
         changePreview,
         savePostThunk,
+        setCodeJarInstance,
+        uploadImage,
     };
 }

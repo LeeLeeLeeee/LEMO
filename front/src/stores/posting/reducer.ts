@@ -3,6 +3,7 @@ import { PostingActions, PostingActionsTypes } from './action';
 
 const initialState: PostingState = {
     code: '',
+    codeJarInstance: undefined,
     setting: {
         preview: false,
     },
@@ -25,6 +26,12 @@ export default function PostingReducer(
                 setting: {
                     preview: action.payload.mode,
                 },
+            };
+        }
+        case PostingActionsTypes.SET_CODEJAR_INSTANCE: {
+            return {
+                ...state,
+                codeJarInstance: action.payload.codeJar,
             };
         }
         default: {
