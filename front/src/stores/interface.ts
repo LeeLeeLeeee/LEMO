@@ -6,6 +6,7 @@ export interface SettingState {
 
 export interface PostingState {
     code: string;
+    codeJarInstance?: any;
     setting: {
         preview: boolean;
     };

@@ -9,24 +9,34 @@ import * as yup from 'yup';
 import MainLayout from '@/layout/Layout';
 import { Meta } from '@/layout/Meta';
 import MarkDownEditor from '@/components/post/mark-down/MarkDownEditor';
-import MarkDownMenu from '@/components/post/mark-down/MarkDownMenu';
 import ContainerFlex from '@/components/common/ContainerFlex';
-import { ResizeIcon } from '@/icons';
 import { usePostingState } from '@/stores/posting/hook';
 import MarkDownPreview from '@/components/post/mark-down/MarkDownPreview';
 import HookFormInput from '@/components/common/forms/HookFormInput';
+import PostMenu from '@/components/post/PostMenu';
+import MarkDownEditorMenu from '@/components/post/mark-down/MarkDownEditorMenu';
 
 const PostingContainer = styled(ContainerFlex)`
     height: 100%;
+    & > div:nth-of-type(1) {
+        flex: 1;
+    }
+
+    & > div:nth-of-type(3) {
+        flex: 20;
+        height: 1px;
+        overflow-y: auto;
+    }
 `;
 
 const ResizeHandler = styled.span`
     position: absolute;
-    width: 20px;
-    height: 20px;
-    right: -10px;
-    top: -20px;
+    height: 100%;
+    right: -7px;
+    top: 0px;
     cursor: e-resize;
+    border: 2px solid gray;
+    border-radius: 5px;
 `;
 
 const writeSchema = yup
@@ -83,7 +93,7 @@ function PostWriteComponent() {
                     $direction="column"
                     $justify="center"
                 >
-                    <MarkDownMenu />
+                    <PostMenu />
                     <HookFormInput
                         style={{ width: '100%' }}
                         control={methods?.control}
@@ -91,27 +101,20 @@ function PostWriteComponent() {
                         label="제목"
                         type="text"
                     />
+                    <MarkDownEditorMenu />
                     <ContainerFlex
-                        $gap={1}
+                        $gap={3}
                         ref={wrapperElement}
-                        className="w-full h-full"
+                        className="flex-1 w-full"
                     >
                         {preview ? (
                             <ResizableBox
-                                className="relative"
+                                className="relative h-full"
                                 width={size.width}
                                 height={size.height}
                                 maxConstraints={[700, Infinity]}
                                 axis="x"
-                                handle={
-                                    preview ? (
-                                        <ResizeHandler>
-                                            <ResizeIcon />
-                                        </ResizeHandler>
-                                    ) : (
-                                        <></>
-                                    )
-                                }
+                                handle={preview ? <ResizeHandler /> : <></>}
                                 onResize={(e: SyntheticEvent) => onResize(e)}
                             >
                                 <MarkDownEditor resizeMode width={size.width} />

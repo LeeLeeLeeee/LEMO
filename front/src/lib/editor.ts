@@ -15,4 +15,7 @@ export const highligher = (editor: HTMLElement) => {
     editor.innerHTML = hljs.highlightAuto(code, ['markdown']).value;
 };
 
+export const createImageMarkDownSymbol = (fileLink: string) =>
+    `![](http://localhost:3000/${fileLink})`;
+
 export { hljs };

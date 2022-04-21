@@ -8,10 +8,12 @@ import { usePostingState } from '@/stores/posting/hook';
 
 const PreviewWrapper = styled.div`
     width: 100%;
+    max-width: 1000px;
     height: 100%;
     background-color: white;
     border-radius: 10px;
     ${tw`shadow-md`}
+    overflow-y: auto;
 `;
 
 function MarkDownPreview(): JSX.Element {

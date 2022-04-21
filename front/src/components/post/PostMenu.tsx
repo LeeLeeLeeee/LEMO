@@ -9,7 +9,7 @@ import ContainerFlex from '@/components/common/ContainerFlex';
 import Toggle from '@/components/common/Toggle';
 import { usePostingDispatch, usePostingState } from '@/stores/posting/hook';
 
-function MarkDownMenu(): JSX.Element {
+function PostMenu(): JSX.Element {
     const {
         code,
         setting: { preview },
@@ -50,4 +50,4 @@ function MarkDownMenu(): JSX.Element {
     );
 }
 
-export default React.memo(MarkDownMenu);
+export default React.memo(PostMenu);
