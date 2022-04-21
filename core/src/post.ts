@@ -43,8 +43,7 @@ export default class Post implements ApiHandler<PostDto> {
             headers: {
                 'Content-Type': 'multipart/form-data'
             },
-            onUploadProgress: (progresEvent) => console.log(progresEvent),
         });
-        return response;
+        return response.data;
     }
 }

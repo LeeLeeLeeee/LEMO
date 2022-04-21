@@ -19,7 +19,10 @@ export interface AxiosParamType {
 export type CoreInstanceInterface = {
     post: ApiHandler<PostDto> & {
         apiName: string;
-        uploadImage: (file: File) => Promise<AxiosResponse<any, any>>;
+        uploadImage: (file: File) => Promise<{
+            originalName: string,
+            filename: string
+        }>;
     },
 };
 
