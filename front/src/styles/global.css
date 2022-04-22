@@ -17,6 +17,7 @@ a:hover {
     --color-secondary: 116 149 154;
     --color-success: 151 219 174;
     --color-error: 244 187 187;
+    --color-warning: 255 209 36;
 }
 
 .dark {
@@ -24,4 +25,5 @@ a:hover {
     --color-secondary: 249 243 223;
     --color-success: 151 219 174;
     --color-error: 244 187 187;
+    --color-warning: 255 209 36;
 }

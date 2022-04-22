@@ -32,6 +32,7 @@ module.exports = {
                 secondary: withOpacityValue('--color-secondary'),
                 success: withOpacityValue('--color-success'),
                 error: withOpacityValue('--color-error'),
+                warning: withOpacityValue('--color-warning'),
                 gray: {
                     100: '#f7fafc',
                     200: '#edf2f7',
