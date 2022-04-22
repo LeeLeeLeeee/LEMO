@@ -10,6 +10,7 @@ import { useSettingsState } from '@/stores/setting/hook';
 import { BaseChild } from '@/components/interface';
 import GlobalStyles from '@/layout/GlobalStyles';
 import '@/styles/MarkDownPreview.scss';
+import { rootContext } from '@/components/rootContext';
 
 const AppWrapper = React.memo((props: BaseChild) => {
     const { mode } = useSettingsState();
@@ -22,15 +23,15 @@ const AppWrapper = React.memo((props: BaseChild) => {
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const store = useStore(pageProps.initialReduxState);
-
+    const ContextProvider = rootContext.useProvider();
     return (
         <Provider store={store}>
             <AppWrapper>
-                <>
+                <ContextProvider>
                     <GlobalStyles />
                     <HeaderComponent />
                     <Component {...pageProps} />
-                </>
+                </ContextProvider>
             </AppWrapper>
         </Provider>
     );
