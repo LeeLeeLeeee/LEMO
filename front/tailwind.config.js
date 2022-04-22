@@ -23,6 +23,9 @@ module.exports = {
             '5xl': '3rem',
             '6xl': '4rem',
         },
+        fontFamily: {
+            'sans-kr': ['"Noto Sans KR"', 'sans-serif'],
+        },
         extend: {
             colors: {
                 primary: withOpacityValue('--color-primary'),
