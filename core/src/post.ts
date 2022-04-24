@@ -25,7 +25,7 @@ export default class Post implements ApiHandler<PostDto> {
     }
 
     async getList(option: Partial<PostDto>) {
-        const response = await serverProxy.get<PostDto[]>(this.apiName, {
+        const response = await serverProxy.get<PostDto[]>(`${this.apiName}/feed`, {
             data: option,
         });
         return response;
