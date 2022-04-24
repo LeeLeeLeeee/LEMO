@@ -13,6 +13,7 @@ const LayoutContainer = tw.div`
     pt-24
     pb-4
     bg-gray-200
+    font-sans-kr
 `;
 
 interface Props {

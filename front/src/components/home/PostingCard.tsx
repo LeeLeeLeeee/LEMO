@@ -4,12 +4,10 @@ import styled from '@emotion/styled';
 import tw, { theme } from 'twin.macro';
 import Image from 'next/image';
 
-import { HeartIcon } from '@/icons';
-
 import ContainerFlex from '../common/ContainerFlex';
 
 const PostingCardWrapper = styled(ContainerFlex)(() => [
-    tw`bg-white self-stretch`,
+    tw`bg-white self-center h-[450px] w-[380px] overflow-hidden flex-1 cursor-pointer`,
 ]);
 
 const PostingDate = styled.div(() => [
@@ -17,17 +15,20 @@ const PostingDate = styled.div(() => [
     { fontSize: theme`fontSize.sm` },
 ]);
 
-const PostingTitleWrapper = styled.div(() => [
-    tw`relative h-[350px] w-full overflow-hidden shadow-md`,
+const PostingImageWrapper = styled.div(() => [
+    tw`relative h-[300px] w-full overflow-hidden shadow-md`,
 ]);
 
 const PostingTitle = styled.div(() => [
-    tw`font-bold w-full z-10 break-all`,
+    tw`font-bold w-full z-10 break-all p-5 flex-1`,
     { fontSize: theme`fontSize.xl` },
 ]);
 
 const PostingBottomWrapper = styled.div`
-    ${tw`pl-1 mt-2`}
+    ${tw`p-3 mt-2 flex justify-between w-full items-center`}
+    & > svg {
+        stroke: #ff3c3c;
+    }
 `;
 
 function PostingCard(): JSX.Element {
@@ -35,22 +36,15 @@ function PostingCard(): JSX.Element {
         <PostingCardWrapper
             $isShadow
             $isRadius
-            $padding={2}
+            $padding={0}
             $direction="column"
         >
-            <PostingDate>2021.01.03</PostingDate>
+            <PostingImageWrapper>
+                <Image src="/스폰지밥.PNG" layout="fill" alt="none" />
+            </PostingImageWrapper>
             <PostingTitle>자바스크립트에 관하여</PostingTitle>
-            <PostingTitleWrapper>
-                <Image
-                    src="/jsmeme.PNG"
-                    layout="fixed"
-                    alt="none"
-                    width={600}
-                    height={400}
-                />
-            </PostingTitleWrapper>
             <PostingBottomWrapper>
-                <HeartIcon />
+                <PostingDate>2021.01.03</PostingDate>
             </PostingBottomWrapper>
         </PostingCardWrapper>
     );
