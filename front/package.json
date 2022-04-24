@@ -20,6 +20,7 @@
     "@hookform/resolvers": "^2.8.8",
     "codejar-compat": "^3.2.2",
     "core": "file:../core",
+    "framer-motion": "^6.3.1",
     "highlight.js": "^11.5.0",
     "marked": "^4.0.12",
     "next": "^12.1.0",
