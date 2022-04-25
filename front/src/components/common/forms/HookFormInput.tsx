@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { Control, useController } from 'react-hook-form';
 
 import { InputAttributeProps, SizeType } from '@/components/interface';
+import { FolderIcon } from '@/icons';
 
 interface Props extends InputAttributeProps {
     inputSize?: SizeType;
@@ -27,9 +28,12 @@ const PADDING: Record<SizeType, any> = {
 };
 
 const InputLabel = styled.label<Props>`
+    display: flex;
+    align-items: center;
     font-size: ${(props) => FONT_SIZE[props.inputSize || 'medium']};
     padding: ${(props) => PADDING[props.inputSize || 'medium']};
     box-sizing: border-box;
+    min-height: 50px;
     margin-bottom: 20px;
     ${tw`
         relative
@@ -60,9 +64,18 @@ const InputLabel = styled.label<Props>`
     & > span {
         ${tw`text-sm text-gray-500 absolute`}
         top: 50%;
-        left: 20px;
-        transform: translate(-50%, -50%);
+        left: 10px;
+        transform: translate(0%, -50%);
         transition: top 0.1s ease-in-out;
+    }
+
+    & > svg {
+        position: absolute;
+        top: -12px;
+        left: -12px;
+        fill: #ffc107;
+        stroke: #ffc107;
+        transform: rotate(-15deg);
     }
 
     &.input-has-error > span {
@@ -72,6 +85,13 @@ const InputLabel = styled.label<Props>`
     & > input {
         padding-top: ${(props) => FONT_SIZE[props.inputSize || 'medium']};
         ${tw`w-full`}
+    }
+
+    & > input[type='file'] {
+        visibility: hidden;
+        position: absolute;
+        width: 0px;
+        height: 0px;
     }
 `;
 
@@ -121,6 +141,7 @@ function HookFormInput(props: Omit<Props, 'placeholder'>): JSX.Element {
                 inputSize={inputSize}
             >
                 {label && <span>{label}</span>}
+                {type === 'file' && <FolderIcon />}
                 <InputElement
                     type={type}
                     value={value}
@@ -129,6 +150,9 @@ function HookFormInput(props: Omit<Props, 'placeholder'>): JSX.Element {
                     onBlur={onBlur}
                     {...rest}
                 />
+                {type === 'file' && value && (
+                    <div className="file-value">{value.split('\\')[2]}</div>
+                )}
                 {error && (
                     <InputErrorTextElement>
                         {error.message}
