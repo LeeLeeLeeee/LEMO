@@ -9,6 +9,7 @@ import SVGSunIcon from './svgs/sun-svgrepo-com.svg';
 import SVGSaveIcon from './svgs/save-svgrepo-com.svg';
 import SVGResizeIcon from './svgs/resize.svg';
 import SVGImageUploadIcon from './svgs/image.svg';
+import SVGFolderIcon from './svgs/folder.svg';
 
 export const GithubIcon = React.memo((): JSX.Element => <SVGGithubIcon />);
 export const EmailIcon = React.memo((): JSX.Element => <SVGEmailIcon />);
@@ -21,3 +22,4 @@ export const ResizeIcon = React.memo((): JSX.Element => <SVGResizeIcon />);
 export const ImageUploadIcon = React.memo(
     (): JSX.Element => <SVGImageUploadIcon />
 );
+export const FolderIcon = React.memo((): JSX.Element => <SVGFolderIcon />);
