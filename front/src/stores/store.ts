@@ -35,10 +35,10 @@ export const initializeStore = (preloadedState: CombinedState) => {
         store = undefined;
     }
 
+    if (!store) store = _store;
     // For SSG and SSR always create a new store
     if (typeof window === 'undefined') return _store;
     // Create the store once in the client
-    if (!store) store = _store;
 
     return _store;
 };
@@ -49,9 +49,6 @@ export function useStore(initialState: CombinedState) {
 }
 
 export function getReduxStore(): Store {
-    if (store) {
-        return store;
-    }
-
-    throw new Error("Store isn't created yet");
+    return store;
+    // throw new Error("Store isn't created yet");
 }
