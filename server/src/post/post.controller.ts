@@ -57,10 +57,11 @@ export class PostController {
 
     @Post()
     async createDraft(@Body() postData: CreatePostDto): Promise<PostModel> {
-        const { title, content, email } = postData;
+        const { title, content, email, thumbnailLink } = postData;
         return this.postService.createPost({
             title,
             content,
+            thumbnailLink,
             author: {
                 connect: { email },
             },

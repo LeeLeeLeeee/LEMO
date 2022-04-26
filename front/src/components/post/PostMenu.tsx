@@ -8,6 +8,9 @@ import IconButton from '@/components/common/button/IconButton';
 import ContainerFlex from '@/components/common/ContainerFlex';
 import Toggle from '@/components/common/Toggle';
 import { usePostingDispatch, usePostingState } from '@/stores/posting/hook';
+import getCore from '@/core-wrapper';
+
+const core = getCore();
 
 function PostMenu(): JSX.Element {
     const {
@@ -21,12 +24,14 @@ function PostMenu(): JSX.Element {
         changePreview(!preview);
     };
 
-    const handleSaveClick = (props: any) => {
-        const { title } = props;
+    const handleSaveClick = async (props: any) => {
+        const { title, thumbnail } = props;
+        const data = await core.post.uploadImage(thumbnail);
         dispatch(
             savePostThunk({
                 email: 'ijj1792@naver.com',
                 content: code,
+                thumbnailLink: data.filename,
                 title,
             })
         );
