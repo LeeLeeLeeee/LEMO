@@ -47,6 +47,10 @@ module.exports = withBundleAnalyzer({
                       source: '/api/:path*',
                       destination: 'http://localhost:3000/api/:path*',
                   },
+                  {
+                      source: '/static/:fileName',
+                      destination: 'http://localhost:3000/static/:fileName',
+                  },
               ]
             : [];
     },

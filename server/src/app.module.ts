@@ -14,6 +14,7 @@ import { PostModule } from './post/post.module';
         PostModule,
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'upload'),
+            serveRoot: '/static',
             exclude: ['/api*'],
         }),
     ],

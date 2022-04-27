@@ -20,7 +20,7 @@ model User {
 model Post {
   id            Int      @default(autoincrement()) @id
   title         String
-  thumbnailLink String? @db.VarChar(50)
+  thumbnailLink String? @db.VarChar(60)
   content       String?
   published     Boolean? @default(false)
   createdAt     DateTime @default(now())
