@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import tw, { theme } from 'twin.macro';
 import Image from 'next/image';
+
+import getCore from '@/core-wrapper';
 
 import ContainerFlex from '../common/ContainerFlex';
 
@@ -31,7 +33,22 @@ const PostingBottomWrapper = styled.div`
     }
 `;
 
-function PostingCard(): JSX.Element {
+interface Props {
+    title: string;
+    createDate: string;
+    thumbnailLink: string;
+}
+const core = getCore();
+function PostingCard(props: Props): JSX.Element {
+    const { title, createDate, thumbnailLink } = props;
+    const [imgUrl, setImgUrl] = useState<string>('');
+    useEffect(() => {
+        (async () => {
+            const link = await core.common.getImageByName(thumbnailLink);
+            setImgUrl(link);
+        })();
+    }, []);
+
     return (
         <PostingCardWrapper
             $isShadow
@@ -40,11 +57,13 @@ function PostingCard(): JSX.Element {
             $direction="column"
         >
             <PostingImageWrapper>
-                <Image src="/스폰지밥.PNG" layout="fill" alt="none" />
+                {imgUrl === '' ? undefined : (
+                    <Image src={imgUrl} layout="fill" alt="none" />
+                )}
             </PostingImageWrapper>
-            <PostingTitle>자바스크립트에 관하여</PostingTitle>
+            <PostingTitle>{title}</PostingTitle>
             <PostingBottomWrapper>
-                <PostingDate>2021.01.03</PostingDate>
+                <PostingDate>{createDate}</PostingDate>
             </PostingBottomWrapper>
         </PostingCardWrapper>
     );

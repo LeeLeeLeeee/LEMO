@@ -24,6 +24,9 @@ export type CoreInstanceInterface = {
             filename: string
         }>;
     },
+    common: {
+        getImageByName: (fileName: string) => Promise<string>
+    }
 };
 
 export type FileUploadType = {
