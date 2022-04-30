@@ -11,11 +11,16 @@ import { BaseChild } from '@/components/interface';
 import GlobalStyles from '@/layout/GlobalStyles';
 import '@/styles/MarkDownPreview.scss';
 import { rootContext } from '@/components/rootContext';
+import MessageList from '@/components/common/message/MessageList';
 
 const AppWrapper = React.memo((props: BaseChild) => {
     const { mode } = useSettingsState();
     return (
-        <div className={mode} style={{ width: '100%', height: '100%' }}>
+        <div
+            id="tailwind-wrapper"
+            className={mode}
+            style={{ width: '100%', height: '100%' }}
+        >
             {props.children}
         </div>
     );
@@ -30,6 +35,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <ContextProvider>
                     <GlobalStyles />
                     <HeaderComponent />
+                    <MessageList />
                     <Component {...pageProps} />
                 </ContextProvider>
             </AppWrapper>
