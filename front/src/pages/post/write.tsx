@@ -7,7 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import MainLayout from '@/layout/Layout';
-import { Meta } from '@/layout/Meta';
 import MarkDownEditor from '@/components/post/mark-down/MarkDownEditor';
 import ContainerFlex from '@/components/common/ContainerFlex';
 import { usePostingState } from '@/stores/posting/hook';
@@ -15,6 +14,7 @@ import MarkDownPreview from '@/components/post/mark-down/MarkDownPreview';
 import HookFormInput from '@/components/common/forms/HookFormInput';
 import PostMenu from '@/components/post/PostMenu';
 import MarkDownEditorMenu from '@/components/post/mark-down/MarkDownEditorMenu';
+import Collapse from '@/components/common/Collapse';
 
 const PostingContainer = styled(ContainerFlex)`
     height: 100%;
@@ -22,7 +22,7 @@ const PostingContainer = styled(ContainerFlex)`
         flex: 1;
     }
 
-    & > div:nth-of-type(3) {
+    & > div:nth-of-type(4) {
         flex: 20;
         height: 1px;
         overflow-y: auto;
@@ -43,6 +43,11 @@ const writeSchema = yup
     .object()
     .shape({
         title: yup.string().required('제목은 필수로 입력해주세요.'),
+        thumbnail: yup
+            .mixed()
+            .test('file-type', '이미지 파일만 업로드해주세요.', (value) => {
+                return (value?.type || '').includes('image');
+            }),
     })
     .required();
 
@@ -78,14 +83,7 @@ function PostWriteComponent() {
     }, []);
     return (
         <FormProvider {...methods}>
-            <MainLayout
-                meta={
-                    <Meta
-                        title="GoGo Dev"
-                        description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
-                    />
-                }
-            >
+            <MainLayout>
                 <PostingContainer
                     $padding={0}
                     $gap={2}
@@ -94,13 +92,24 @@ function PostWriteComponent() {
                     $justify="center"
                 >
                     <PostMenu />
-                    <HookFormInput
-                        style={{ width: '100%' }}
-                        control={methods?.control}
-                        name="title"
-                        label="제목"
-                        type="text"
-                    />
+                    <Collapse>
+                        <ContainerFlex $direction="column" $padding={3}>
+                            <HookFormInput
+                                style={{ width: '100%' }}
+                                control={methods?.control}
+                                name="title"
+                                label="제목"
+                                type="text"
+                            />
+                            <HookFormInput
+                                style={{ width: '100%' }}
+                                control={methods?.control}
+                                name="thumbnail"
+                                label="썸네일"
+                                type="file"
+                            />
+                        </ContainerFlex>
+                    </Collapse>
                     <MarkDownEditorMenu />
                     <ContainerFlex
                         $gap={3}
@@ -109,7 +118,7 @@ function PostWriteComponent() {
                     >
                         {preview ? (
                             <ResizableBox
-                                className="relative h-full"
+                                className="relative !h-full"
                                 width={size.width}
                                 height={size.height}
                                 maxConstraints={[700, Infinity]}
