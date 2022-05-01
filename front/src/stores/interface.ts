@@ -1,5 +1,12 @@
 export type ThemeMode = 'dark' | 'light';
 
+export type Feed = {
+    id: number;
+    title: string;
+    thumbnailLink: string;
+    createdAt: string;
+};
+
 export interface SettingState {
     mode: ThemeMode;
 }
@@ -7,8 +14,17 @@ export interface SettingState {
 export interface PostingState {
     code: string;
     codeJarInstance?: any;
+    feeds: {
+        list: Feed[];
+        cursor: number;
+    };
     setting: {
         preview: boolean;
+    };
+    status: {
+        loading: boolean;
+        success: boolean;
+        error: any;
     };
 }
 

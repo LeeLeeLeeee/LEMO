@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { useMemo } from 'react';
 
-import { createStore, applyMiddleware, compose, Store } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
@@ -36,6 +36,7 @@ export const initializeStore = (preloadedState: CombinedState) => {
     }
 
     if (!store) store = _store;
+
     // For SSG and SSR always create a new store
     if (typeof window === 'undefined') return _store;
     // Create the store once in the client
@@ -46,9 +47,4 @@ export const initializeStore = (preloadedState: CombinedState) => {
 export function useStore(initialState: CombinedState) {
     const _store = useMemo(() => initializeStore(initialState), [initialState]);
     return _store;
-}
-
-export function getReduxStore(): Store {
-    return store;
-    // throw new Error("Store isn't created yet");
 }
