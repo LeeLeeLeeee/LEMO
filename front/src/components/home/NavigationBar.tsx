@@ -3,10 +3,12 @@ import React from 'react';
 import tw, { theme } from 'twin.macro';
 import Image from 'next/image';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
-import { EmailIcon, GithubIcon, PhoneIcon } from '@/icons';
+import { EmailIcon, GithubIcon, PencilIcon, PhoneIcon } from '@/icons';
 
 import ContainerFlex from '../common/ContainerFlex';
+import withHoverAnime from '../hoc/withHoverAnime';
 
 const NavigationWrapper = tw(ContainerFlex)`
     w-64
@@ -14,14 +16,17 @@ const NavigationWrapper = tw(ContainerFlex)`
 `;
 
 const ProfileCard = styled(ContainerFlex)`
-    ${tw`bg-white/80`}
-    ${tw`h-72`}
+    ${tw`bg-white/80 h-[300px] flex-none w-full`}
     & > span {
         width: 100px;
         border-radius: 100px;
         overflow: hidden;
         ${tw`shadow-lg`}
     }
+`;
+
+const WritePostLabel = styled(ContainerFlex)`
+    ${tw`bg-white w-full cursor-pointer`}
 `;
 
 const NameTitle = styled.div(() => [
@@ -33,10 +38,14 @@ const SubTitle = styled.div(() => [
     { fontSize: theme`fontSize.sm` },
     tw`self-stretch text-secondary`,
 ]);
+const WritePostLabelHOC = withHoverAnime(WritePostLabel, {
+    styles: { width: '100%' },
+});
 
 function NavigationBar(): JSX.Element {
+    const router = useRouter();
     return (
-        <NavigationWrapper>
+        <NavigationWrapper $gap={3} $direction="column">
             <ProfileCard
                 $isInline
                 $isRadius
@@ -65,6 +74,16 @@ function NavigationBar(): JSX.Element {
                     </ContainerFlex>
                 </ContainerFlex>
             </ProfileCard>
+            <WritePostLabelHOC
+                onClick={() => router.push('/post/write')}
+                $justify="between"
+                $items="center"
+                $padding={5}
+                $isRadius
+                $isShadow
+            >
+                <PencilIcon /> 게시글 작성
+            </WritePostLabelHOC>
         </NavigationWrapper>
     );
 }
