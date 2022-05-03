@@ -1,11 +1,9 @@
 import HomeContent from '@/components/home/HomeContent';
 import NavigationBar from '@/components/home/NavigationBar';
-import getCore from '@/core-wrapper';
 import MainLayout from '@/layout/Layout';
 import { Meta } from '@/layout/Meta';
 
-const core = getCore();
-const Index = ({ data }: any) => {
+const Index = () => {
     return (
         <MainLayout
             meta={
@@ -16,14 +14,9 @@ const Index = ({ data }: any) => {
             }
         >
             <NavigationBar />
-            <HomeContent feeds={data} />
+            <HomeContent />
         </MainLayout>
     );
 };
-
-export async function getServerSideProps() {
-    const { data } = await core.post.getList({});
-    return { props: { data } };
-}
 
 export default Index;
