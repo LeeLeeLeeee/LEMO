@@ -9,6 +9,7 @@ import {
     ParseIntPipe,
     Post,
     Put,
+    Query,
     UploadedFile,
     UseInterceptors,
 } from '@nestjs/common';
@@ -19,15 +20,47 @@ import { editFileName, imageFileFilter } from 'lib/file';
 import { diskStorage } from 'multer';
 import { PostService } from './post.service';
 
+interface PostModelWithCursor {
+    posts: PostModel[];
+    cursor: number;
+}
+
+interface FeedProps {
+    cursor: number;
+    pageSize: number;
+}
+
 @Controller('post')
 export class PostController {
     constructor(private readonly postService: PostService) {}
 
     @Get('/feed')
-    async getPublishedPosts(): Promise<PostModel[]> {
-        return this.postService.posts({
+    async getPublishedPosts(
+        @Query() feedProps: FeedProps,
+    ): Promise<PostModelWithCursor> {
+        const { cursor = -1, pageSize } = feedProps;
+
+        const options: any = {
             where: { published: true },
-        });
+            orderBy: { id: 'desc' },
+            take: +pageSize,
+        };
+        if (+cursor !== -1) {
+            options['cursor'] = { id: +cursor };
+            options['skip'] = 1;
+        }
+
+        const posts = await this.postService.posts(options);
+        if (posts.length === 0) {
+            return {
+                posts: [],
+                cursor,
+            };
+        }
+        return {
+            posts,
+            cursor: posts[posts.length - 1].id,
+        };
     }
 
     @Get('/:id')
