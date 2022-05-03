@@ -23,6 +23,10 @@ export type CoreInstanceInterface = {
             originalName: string,
             filename: string
         }>;
+        getFeeds: (pageSize?: number, cursor?: number) => Promise<{
+            posts: PostDto[],
+            cursor: number
+        }>;
     },
     common: {
         getImageByName: (fileName: string) => Promise<string>

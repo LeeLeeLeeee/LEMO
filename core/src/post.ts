@@ -25,10 +25,20 @@ export default class Post implements ApiHandler<PostDto> {
     }
 
     async getList(option: Partial<PostDto>) {
-        const response = await serverProxy.get<PostDto[]>(`${this.apiName}/feed`, {
+        const response = await serverProxy.get<PostDto[]>(`${this.apiName}/filter`, {
             data: option,
         });
         return response;
+    }
+
+    async getFeeds(pageSize: number, cursor: number) {
+        const response = await serverProxy.get<{ posts: PostDto[], cursor: number }>(`${this.apiName}/feed`, {
+            params: {
+                cursor,
+                pageSize,
+            },
+        });
+        return response.data;
     }
 
     async getById(id: number) {
