@@ -1,20 +1,16 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 import styled from '@emotion/styled';
-import { ResizableBox } from 'react-resizable';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import MainLayout from '@/layout/Layout';
-import MarkDownEditor from '@/components/post/mark-down/MarkDownEditor';
 import ContainerFlex from '@/components/common/ContainerFlex';
-import { usePostingState } from '@/stores/posting/hook';
-import MarkDownPreview from '@/components/post/mark-down/MarkDownPreview';
 import HookFormInput from '@/components/common/forms/HookFormInput';
 import PostMenu from '@/components/post/PostMenu';
-import MarkDownEditorMenu from '@/components/post/mark-down/MarkDownEditorMenu';
 import Collapse from '@/components/common/Collapse';
+import MarkDown from '@/components/post/mark-down/MarkDown';
 
 const PostingContainer = styled(ContainerFlex)`
     height: 100%;
@@ -27,16 +23,6 @@ const PostingContainer = styled(ContainerFlex)`
         height: 1px;
         overflow-y: auto;
     }
-`;
-
-const ResizeHandler = styled.span`
-    position: absolute;
-    height: 100%;
-    right: -7px;
-    top: 0px;
-    cursor: e-resize;
-    border: 2px solid gray;
-    border-radius: 5px;
 `;
 
 const writeSchema = yup
@@ -52,35 +38,10 @@ const writeSchema = yup
     .required();
 
 function PostWriteComponent() {
-    const wrapperElement = useRef<any>();
     const methods = useForm({
         resolver: yupResolver(writeSchema),
     });
-    const [size, setSize] = useState({
-        width: 700,
-        height: 0,
-    });
-    const {
-        setting: { preview },
-    } = usePostingState();
 
-    const onResize = (event: any) => {
-        const { left } = wrapperElement.current?.getBoundingClientRect() || {
-            left: 0,
-        };
-        const { clientX } = event;
-        setSize((_size) => ({
-            ..._size,
-            width: Math.min(clientX - left, 700),
-        }));
-    };
-
-    useEffect(() => {
-        const { height } = wrapperElement.current?.getBoundingClientRect() || {
-            height: 0,
-        };
-        setSize((_size) => ({ ..._size, height }));
-    }, []);
     return (
         <FormProvider {...methods}>
             <MainLayout>
@@ -110,30 +71,7 @@ function PostWriteComponent() {
                             />
                         </ContainerFlex>
                     </Collapse>
-                    <MarkDownEditorMenu />
-                    <ContainerFlex
-                        $gap={3}
-                        ref={wrapperElement}
-                        className="flex-1 w-full"
-                    >
-                        {preview ? (
-                            <ResizableBox
-                                className="relative !h-full"
-                                width={size.width}
-                                height={size.height}
-                                maxConstraints={[700, Infinity]}
-                                axis="x"
-                                handle={preview ? <ResizeHandler /> : <></>}
-                                onResize={(e: SyntheticEvent) => onResize(e)}
-                            >
-                                <MarkDownEditor resizeMode width={size.width} />
-                            </ResizableBox>
-                        ) : (
-                            <MarkDownEditor />
-                        )}
-
-                        {preview && <MarkDownPreview />}
-                    </ContainerFlex>
+                    <MarkDown />
                 </PostingContainer>
             </MainLayout>
         </FormProvider>
