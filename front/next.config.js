@@ -23,6 +23,9 @@ module.exports = withBundleAnalyzer({
     env: {
         API_ENDPOINT: 'http://localhost:3001',
     },
+    images: {
+        domains: ['localhost'],
+    },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,
