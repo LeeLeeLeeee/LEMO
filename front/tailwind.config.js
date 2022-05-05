@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 function withOpacityValue(variable) {
     return ({ opacityValue }) => {
         if (opacityValue === undefined) {
@@ -11,6 +14,10 @@ module.exports = {
     content: ['./src/**/*.{js,ts,jsx,tsx}'],
     darkMode: 'class',
     theme: {
+        screens: {
+            xs: '475px',
+            ...defaultTheme.screens,
+        },
         fontSize: {
             xs: '0.75rem',
             sm: '0.875rem',
