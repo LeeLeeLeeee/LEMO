@@ -16,7 +16,7 @@ const CollapseWrapper = styled(ContainerFlex)`
     border: 1px solid #e3e3e3;
     border-radius: 5px;
     overflow-y: hidden;
-    & > div:first-child {
+    & > div:first-of-type {
         align-self: stretch;
         padding: 5px;
         display: inline-flex;
