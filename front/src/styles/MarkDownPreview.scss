@@ -6,22 +6,33 @@
     line-height: calc(14px * 1.8);
     height: 100%;
     & h1 {
-        font-size: 24px !important;
+        font-size: 30px !important;
         font-weight: 600;
-        margin: 0.67em 0;
+        margin: 0.8em 0;
+        &:before {
+            content: '# ';
+        }
     }
     & h2 {
-        font-size: 18px;
+        font-size: 24px;
         font-weight: 600;
+        margin: 0.5em 0;
+        &:before {
+            content: '## ';
+        }
     }
     & h3 {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 600;
+        margin: 0.5em 0;
+        &:before {
+            content: '### ';
+        }
     }
     & h4,
     & h5,
     & h6 {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 600;
     }
 

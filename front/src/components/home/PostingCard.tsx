@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import tw, { theme } from 'twin.macro';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import getCore from '@/core-wrapper';
+import { convertDate } from '@/lib/date';
 
 import ContainerFlex from '../common/ContainerFlex';
 
@@ -34,14 +36,20 @@ const PostingBottomWrapper = styled.div`
 `;
 
 interface Props {
+    id: number;
     title: string;
     createDate: string;
     thumbnailLink: string;
 }
 const core = getCore();
 function PostingCard(props: Props): JSX.Element {
-    const { title, createDate, thumbnailLink } = props;
+    const { title, createDate, thumbnailLink, id } = props;
     const [imgUrl, setImgUrl] = useState<string>('');
+    const createDateAt = convertDate(createDate, 'YYYY.MM.DD');
+    const router = useRouter();
+    const handleCardClick = useCallback(() => {
+        router.push(`/post/${id}`);
+    }, []);
     useEffect(() => {
         (async () => {
             const link = await core.common.getImageByName(thumbnailLink);
@@ -55,6 +63,7 @@ function PostingCard(props: Props): JSX.Element {
             $isRadius
             $padding={0}
             $direction="column"
+            onClick={handleCardClick}
         >
             <PostingImageWrapper>
                 {imgUrl === '' ? undefined : (
@@ -63,7 +72,7 @@ function PostingCard(props: Props): JSX.Element {
             </PostingImageWrapper>
             <PostingTitle>{title}</PostingTitle>
             <PostingBottomWrapper>
-                <PostingDate>{createDate}</PostingDate>
+                <PostingDate>{createDateAt}</PostingDate>
             </PostingBottomWrapper>
         </PostingCardWrapper>
     );
