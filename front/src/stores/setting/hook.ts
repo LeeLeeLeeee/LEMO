@@ -1,13 +1,9 @@
 import { useCallback } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { CombinedState, SettingState, ThemeMode } from '../interface';
+import { ThemeMode } from '../interface';
 import { settingActions } from './actions';
-
-export function useSettingsState(): SettingState {
-    return useSelector((state: CombinedState) => state.setting);
-}
 
 export function useSettingsDispatch() {
     const dispatch = useDispatch();
@@ -16,7 +12,12 @@ export function useSettingsDispatch() {
         dispatch(settingActions.changeThemeMode(mode));
     }, []);
 
+    const setHeaderVisible = useCallback((visible: boolean) => {
+        dispatch(settingActions.changeHeaderVisible(visible));
+    }, []);
+
     return {
         setThemeMode,
+        setHeaderVisible,
     };
 }

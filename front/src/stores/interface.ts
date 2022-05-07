@@ -9,6 +9,7 @@ export type Feed = {
 
 export interface SettingState {
     mode: ThemeMode;
+    headerVisible: boolean;
 }
 
 export interface PostingState {

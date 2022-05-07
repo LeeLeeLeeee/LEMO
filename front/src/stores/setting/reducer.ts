@@ -3,6 +3,7 @@ import { SettingActionTypes, SettingActions } from './actions';
 
 const initialState: SettingState = {
     mode: 'light',
+    headerVisible: true,
 };
 
 export default function SettingsReducer(
@@ -14,6 +15,12 @@ export default function SettingsReducer(
             return {
                 ...state,
                 mode: action.payload,
+            };
+        }
+        case SettingActionTypes.CHANGE_HEADER_VISIBLE: {
+            return {
+                ...state,
+                headerVisible: action.payload,
             };
         }
         default: {

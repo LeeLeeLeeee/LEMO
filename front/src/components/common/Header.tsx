@@ -1,34 +1,52 @@
 import React from 'react';
 
-import tw from 'twin.macro';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import styled from '@emotion/styled';
+import tw from 'twin.macro';
 
-import { useSettingsDispatch, useSettingsState } from '@/stores/setting/hook';
+import { useSettingsDispatch } from '@/stores/setting/hook';
 import { LightningIcon, MoonIcon, SunIcon } from '@/icons';
+import { CombinedState } from '@/stores/interface';
 
 import IconButton from './button/IconButton';
 
-const Header = tw.div`
-    fixed
-    w-full
-    p-2
-    lg:pl-96
-    lg:pr-96
-    md:pl-10
-    md:pr-10
-    xs:pl-2
-    xs:pr-2
-    flex
-    justify-between
-    items-center
-    shadow-sm
-    z-10
-    bg-white
-    dark:bg-black
-`;
+interface HeaderProps {
+    visible: boolean;
+}
+
+const Header = styled.div((props: HeaderProps) => [
+    tw`
+        fixed
+        w-full
+        p-2
+        lg:pl-96
+        lg:pr-96
+        md:pl-10
+        md:pr-10
+        xs:pl-2
+        xs:pr-2
+        flex
+        justify-between
+        items-center
+        shadow-sm
+        z-10
+        bg-white
+        dark:bg-black
+        ease-out
+    `,
+    {
+        transition: 'top .3s',
+        top: props.visible ? '0px' : '-60px',
+    },
+]);
 
 function HeaderComponent() {
-    const { mode } = useSettingsState();
+    const { mode, headerVisible } = useSelector((state: CombinedState) => ({
+        mode: state.setting.mode,
+        headerVisible: state.setting.headerVisible,
+    }));
+
     const router = useRouter();
     const { setThemeMode } = useSettingsDispatch();
     const handleLightClick = () => {
@@ -39,7 +57,7 @@ function HeaderComponent() {
     };
 
     return (
-        <Header>
+        <Header visible={headerVisible}>
             <span
                 style={{ cursor: 'pointer' }}
                 onClick={() => router.push('/')}
