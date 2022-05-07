@@ -22,17 +22,17 @@ const LayoutContainer = tw.div`
     overflow-y-auto
 `;
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
     meta?: ReactNode;
     children: ReactNode;
 }
 
-function MainLayout(props: Props) {
-    const { children, meta } = props;
+function MainLayout(props: Props, ref: any) {
+    const { children, meta, ...rest } = props;
     return (
         <>
             {meta}
-            <LayoutContainer>
+            <LayoutContainer ref={ref} {...rest}>
                 <FlexContainer $isStretch $gap={GAP_SIZE.medium}>
                     {children}
                 </FlexContainer>
@@ -41,4 +41,4 @@ function MainLayout(props: Props) {
     );
 }
 
-export default MainLayout;
+export default React.forwardRef(MainLayout);
