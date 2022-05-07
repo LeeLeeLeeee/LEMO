@@ -1,6 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Post as PostDto } from 'server-module/node_modules/@prisma/client';
-import { CreatePostDto } from 'server-module/src/interfaces';
+import { CreatePostDto, UpdatePostDto } from 'server-module/src/interfaces';
 
 export interface ApiHandler<T> {
     getList: (option: Partial<T>) => Promise<AxiosResponse<T[], any>>,
@@ -37,4 +37,4 @@ export type FileUploadType = {
     image: File,
 };
 
-export type { PostDto, CreatePostDto };
+export type { PostDto, CreatePostDto, UpdatePostDto };

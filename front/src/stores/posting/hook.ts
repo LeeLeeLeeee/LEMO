@@ -1,20 +1,16 @@
 import { useCallback } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { CreatePostDto } from 'core/src/interface';
+import { useDispatch } from 'react-redux';
+import { CreatePostDto, UpdatePostDto } from 'core/src/interface';
 
 import { ThunkAction } from '@/lib/redux';
 import getCore from '@/core-wrapper';
 import { createImageMarkDownSymbol } from '@/lib/editor';
 
-import { CombinedState, Feed, PostingState } from '../interface';
+import { Feed } from '../interface';
 import { postingActions } from './action';
 
 const core = getCore();
-
-export function usePostingState(): PostingState {
-    return useSelector((state: CombinedState) => state.posting);
-}
 
 export function usePostingDispatch() {
     const dispatch = useDispatch();
@@ -59,7 +55,7 @@ export function usePostingDispatch() {
     );
 
     const savePostThunk = useCallback(
-        (data: CreatePostDto, id?: number): ThunkAction =>
+        (data: CreatePostDto | UpdatePostDto, id?: number): ThunkAction =>
             async (thunkDispatch) => {
                 thunkDispatch(postingActions.savePost());
                 try {
