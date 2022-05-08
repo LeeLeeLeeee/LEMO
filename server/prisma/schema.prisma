@@ -12,8 +12,11 @@ datasource db {
 
 model User {
   id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
+  email String  @db.VarChar(100) @unique
+  name  String @default("")
+  password String @default("")
+  profileImage String @default("")
+  description String? @db.VarChar(100)
   posts Post[]
 }
 
