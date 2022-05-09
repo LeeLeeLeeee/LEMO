@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import tw from 'twin.macro';
 import styled from '@emotion/styled';
@@ -79,6 +79,7 @@ const InputLabel = styled.label<Props>`
     }
 
     &.input-has-error > span {
+        top: 20%;
         ${tw`text-red-500`}
     }
 
@@ -131,6 +132,13 @@ function HookFormInput(props: Omit<Props, 'placeholder'>): JSX.Element {
         defaultValue,
     });
 
+    const [fileName, setFileName] = useState('');
+
+    const handleFileChange = (e: any) => {
+        setFileName(e.target.value);
+        onChange(e.target.files[0]);
+    };
+
     return (
         <>
             <InputLabel
@@ -144,14 +152,14 @@ function HookFormInput(props: Omit<Props, 'placeholder'>): JSX.Element {
                 {type === 'file' && <FolderIcon />}
                 <InputElement
                     type={type}
-                    value={value}
+                    value={type === 'file' ? fileName : value}
                     ref={ref}
-                    onChange={onChange}
+                    onChange={type === 'file' ? handleFileChange : onChange}
                     onBlur={onBlur}
                     {...rest}
                 />
                 {type === 'file' && value && (
-                    <div className="file-value">{value.split('\\')[2]}</div>
+                    <div className="file-value">{fileName.split('\\')[2]}</div>
                 )}
                 {error && (
                     <InputErrorTextElement>
