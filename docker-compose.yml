@@ -28,6 +28,26 @@ services:
     networks:
       - service_bridge
 
+  redis_server:
+    container_name: redis_server
+    image: redis:7.0.0-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - service_bridge
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis_server:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+        - redis_server
+    networks:
+      - service_bridge
+
 volumes:
   post_service_db:
 
