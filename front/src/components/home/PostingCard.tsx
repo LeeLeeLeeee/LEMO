@@ -7,11 +7,12 @@ import { useRouter } from 'next/router';
 
 import getCore from '@/core-wrapper';
 import { convertDate } from '@/lib/date';
+import { ImageUploadIcon } from '@/icons';
 
 import ContainerFlex from '../common/ContainerFlex';
 
 const PostingCardWrapper = styled(ContainerFlex)(() => [
-    tw`bg-white self-center h-[450px] w-[380px] overflow-hidden flex-1 cursor-pointer`,
+    tw`bg-white self-center h-[450px] w-[400px] overflow-hidden flex-1 cursor-pointer`,
 ]);
 
 const PostingDate = styled.div(() => [
@@ -20,7 +21,13 @@ const PostingDate = styled.div(() => [
 ]);
 
 const PostingImageWrapper = styled.div(() => [
-    tw`relative h-[300px] w-full overflow-hidden shadow-md`,
+    tw`relative h-[300px] w-full overflow-hidden flex justify-center items-center`,
+    {
+        '& > svg': {
+            stroke: 'rgba(0, 0, 0, .3)',
+            transform: 'scale(3)',
+        },
+    },
 ]);
 
 const PostingTitle = styled.div(() => [
@@ -52,8 +59,10 @@ function PostingCard(props: Props): JSX.Element {
     }, []);
     useEffect(() => {
         (async () => {
-            const link = await core.common.getImageByName(thumbnailLink);
-            setImgUrl(link);
+            if (thumbnailLink) {
+                const link = await core.common.getImageByName(thumbnailLink);
+                setImgUrl(link);
+            }
         })();
     }, []);
 
@@ -66,7 +75,9 @@ function PostingCard(props: Props): JSX.Element {
             onClick={handleCardClick}
         >
             <PostingImageWrapper>
-                {imgUrl === '' ? undefined : (
+                {imgUrl === '' ? (
+                    <ImageUploadIcon />
+                ) : (
                     <Image src={imgUrl} layout="fill" alt="none" />
                 )}
             </PostingImageWrapper>

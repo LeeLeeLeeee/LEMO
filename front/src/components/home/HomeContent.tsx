@@ -4,8 +4,10 @@ import styled from '@emotion/styled';
 import tw from 'twin.macro';
 import dynamic from 'next/dynamic';
 import { motion, Variants } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
-import { usePostingDispatch, usePostingState } from '@/stores/posting/hook';
+import { usePostingDispatch } from '@/stores/posting/hook';
+import { CombinedState } from '@/stores/interface';
 
 import FlexContainer from '../common/ContainerFlex';
 import withHoverAnime from '../hoc/withHoverAnime';
@@ -49,13 +51,14 @@ function HomeContent(): JSX.Element {
     const homeElement = useRef<null | HTMLDivElement>(null);
     const { getFeedsThunk } = usePostingDispatch();
 
-    const {
-        feeds: { list: feeds },
-    } = usePostingState();
+    const feeds = useSelector(
+        (state: CombinedState) => state.posting.feeds.list
+    );
 
     useEffect(() => {
+        let intersectionObserver: any;
         if (intersectionElement.current !== null) {
-            const intersectionObserver = new IntersectionObserver(
+            intersectionObserver = new IntersectionObserver(
                 (entries) => {
                     const [entry] = entries;
                     if (entry?.isIntersecting) {
@@ -64,8 +67,13 @@ function HomeContent(): JSX.Element {
                 },
                 { threshold: [0.5] }
             );
+
             intersectionObserver.observe(intersectionElement.current);
         }
+
+        return () => {
+            intersectionObserver.disconnect();
+        };
     }, []);
 
     return (
@@ -85,6 +93,7 @@ function HomeContent(): JSX.Element {
                         }}
                     >
                         <PostingCardHOC
+                            id={feed.id}
                             title={feed.title}
                             thumbnailLink={feed.thumbnailLink}
                             createDate={feed.createdAt}
