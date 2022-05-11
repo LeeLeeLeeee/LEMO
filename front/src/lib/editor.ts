@@ -16,6 +16,6 @@ export const highligher = (editor: HTMLElement) => {
 };
 
 export const createImageMarkDownSymbol = (fileLink: string) =>
-    `![](http://localhost:3000/${fileLink})`;
+    `![](http://localhost:3000/static/${fileLink})`;
 
 export { hljs };
