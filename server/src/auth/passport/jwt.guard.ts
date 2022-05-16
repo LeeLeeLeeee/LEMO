@@ -6,12 +6,9 @@ import {
     Inject,
     InternalServerErrorException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
-import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'auth/auth.service';
-import { RedisService } from '../../redis/redis.service';
 
 @Injectable()
 export class JWTAuthenticationGuard extends AuthGuard('jwt') {
@@ -32,6 +29,7 @@ export class JWTAuthenticationGuard extends AuthGuard('jwt') {
                 const userID = await this.authService.checkRefreshToken(
                     refresh_token,
                 );
+
                 if (userID === null) throw new UnauthorizedException();
 
                 const accessCookie =
