@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ThemeMode } from '../interface';
-import { settingActions } from './actions';
+import { settingActions } from './action';
 
 export function useSettingsDispatch() {
     const dispatch = useDispatch();

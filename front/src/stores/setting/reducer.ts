@@ -1,5 +1,5 @@
 import { SettingState } from '../interface';
-import { SettingActionTypes, SettingActions } from './actions';
+import { SettingActionTypes, SettingActions } from './action';
 
 const initialState: SettingState = {
     mode: 'light',
