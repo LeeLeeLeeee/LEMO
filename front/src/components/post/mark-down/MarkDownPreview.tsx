@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from 'react';
 
 import styled from '@emotion/styled';
 import tw from 'twin.macro';
+import { useSelector } from 'react-redux';
 
 import marked from '@/lib/lib';
-import { usePostingState } from '@/stores/posting/hook';
+import { CombinedState } from '@/stores/interface';
 
 const PreviewWrapper = styled.div`
     width: 100%;
@@ -17,7 +18,7 @@ const PreviewWrapper = styled.div`
 `;
 
 function MarkDownPreview(): JSX.Element {
-    const { code } = usePostingState();
+    const code = useSelector((state: CombinedState) => state.posting.code);
     const previewElement = useRef<any>();
     useEffect(() => {
         if (previewElement.current) {

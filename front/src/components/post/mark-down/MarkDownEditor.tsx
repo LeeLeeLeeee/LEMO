@@ -3,11 +3,13 @@ import React, { useEffect, useRef } from 'react';
 import { CodeJar } from 'codejar-compat';
 import tw from 'twin.macro';
 import styled from '@emotion/styled';
+import { useSelector } from 'react-redux';
 
 import { highligher } from '@/lib/editor';
 import { usePostingDispatch } from '@/stores/posting/hook';
-
-import 'highlight.js/styles/androidstudio.css';
+import 'highlight.js/styles/atom-one-light.css';
+import { rootContext } from '@/components/rootContext';
+import { CombinedState } from '@/stores/interface';
 
 const EditorElement = styled.div`
     ${tw`
@@ -34,12 +36,19 @@ function MarkDownEditor(props: Props): JSX.Element {
     const codeJar = useRef<any>(null);
     const { updateCode, setCodeJarInstance, uploadImage } =
         usePostingDispatch();
-    const widthStyle = resizeMode ? { width: `${width}px` } : {};
 
+    const code = useSelector((state: CombinedState) => state.posting.code);
+    const { message } = rootContext.useAlert();
+    const widthStyle = resizeMode ? { width: `${width}px` } : {};
     const handleEditorPaste = (e: any) => {
         const clipBoardInstance = e.clipboardData;
         if (clipBoardInstance.types[0] === 'Files') {
-            uploadImage(clipBoardInstance.files[0]);
+            try {
+                uploadImage(clipBoardInstance.files[0]);
+                message.success('이미지 업로드에 성공했습니다.');
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 
@@ -47,7 +56,7 @@ function MarkDownEditor(props: Props): JSX.Element {
         const mdEditor = editor.current as HTMLElement;
         if (mdEditor !== null) {
             codeJar.current = CodeJar(mdEditor, highligher, { tab: '\t' });
-            codeJar.current.updateCode('');
+            codeJar.current.updateCode(code);
             codeJar.current.onUpdate((editorCode: string) =>
                 updateCode(editorCode)
             );
