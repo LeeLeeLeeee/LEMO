@@ -13,6 +13,8 @@ import SVGFolderIcon from './svgs/folder.svg';
 import SVGLightningIcon from './svgs/lightning.svg';
 import SVGArrowDownIcon from './svgs/arrow-sm-down.svg';
 import SVGPencilIcon from './svgs/pencil.svg';
+import SVGUser from './svgs/user.svg';
+import SVGLogin from './svgs/login.svg';
 
 export const GithubIcon = React.memo((): JSX.Element => <SVGGithubIcon />);
 export const EmailIcon = React.memo((): JSX.Element => <SVGEmailIcon />);
@@ -33,3 +35,5 @@ export const ArrowDownIcon = React.memo(
     (): JSX.Element => <SVGArrowDownIcon />
 );
 export const PencilIcon = React.memo((): JSX.Element => <SVGPencilIcon />);
+export const UserIcon = React.memo((): JSX.Element => <SVGUser />);
+export const LogInIcon = React.memo((): JSX.Element => <SVGLogin />);
