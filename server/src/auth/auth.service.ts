@@ -20,7 +20,7 @@ export class AuthService {
         private readonly redisService: RedisService,
     ) {}
 
-    async signUp(data: Prisma.UserCreateInput): Promise<User> {
+    async register(data: Prisma.UserCreateInput): Promise<User> {
         const { password, ...rest } = data;
         try {
             const hashedPassword = await bcrypt.hash(password, 10);

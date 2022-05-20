@@ -15,6 +15,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Post as PostModel } from '@prisma/client';
+import { Public } from 'decorator';
 import { CreatePostDto } from 'interfaces';
 import { editFileName, imageFileFilter } from 'lib/file';
 import { diskStorage } from 'multer';
@@ -35,6 +36,7 @@ export class PostController {
     constructor(private readonly postService: PostService) {}
 
     @Get('/feed')
+    @Public()
     async getPublishedPosts(
         @Query() feedProps: FeedProps,
     ): Promise<PostModelWithCursor> {
@@ -64,6 +66,7 @@ export class PostController {
     }
 
     @Get('/:id')
+    @Public()
     async getPostById(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<PostModel> {
@@ -71,6 +74,7 @@ export class PostController {
     }
 
     @Get('filter/:searchString')
+    @Public()
     async getFilteredPosts(
         @Param('searchString') searchString: string,
     ): Promise<PostModel[]> {

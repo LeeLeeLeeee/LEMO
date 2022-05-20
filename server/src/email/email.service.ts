@@ -35,7 +35,7 @@ export default class EmailService {
             'EMAIL_CONFIRMATION_URL',
         )}?token=${token}`;
         const contentHtml = `
-            <p>이메일 인증을 진행해주세요</p>
+            <p>이메일 인증을 진행해주세요. (5분이 지날경우 다시 인증 메일을 받아주세요.)</p>
             <a style="-webkit-appearance: button;-moz-appearance: button;appearance: button;" href="${url}">인증</a>
         `;
         return this.nodemailerTransport.sendMail({
