@@ -25,7 +25,7 @@ export const BG_COLOR: Record<ColorType, TwStyle> = {
     dark: tw`bg-black`,
     error: tw`bg-error`,
     info: tw`bg-blue-300`,
-    light: tw`bg-blue-50`,
+    light: tw`bg-gray-50`,
     secondary: tw`bg-secondary`,
     success: tw`bg-success`,
 };
@@ -35,7 +35,7 @@ export const FONT_COLOR: Record<ColorType, TwStyle> = {
     dark: tw`text-black`,
     error: tw`text-error`,
     info: tw`text-blue-300`,
-    light: tw`text-blue-50`,
+    light: tw`text-gray-50`,
     secondary: tw`text-secondary`,
     success: tw`text-success`,
 };
