@@ -5,10 +5,16 @@
 ## Skils
 
 ## FRONT
-NEXT.JS
+NEXT.JS, Tailwind, emotion-styled, CodeJar, framer-motion
 
 ## Back
-Nest.JS
+Nest.JS, Prisma
 
 ## DB
-PostgreSQL
+PostgreSQL, Redis
+
+## Devops
+Docker, Docker-compose
+
+## Code Convention
+Eslint, Prettier, husky, lint-stage
