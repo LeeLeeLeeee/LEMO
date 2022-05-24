@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import PostingReducer from './posting/reducer';
+import postingReducer from './posting/reducer';
 import settingReducer from './setting/reducer';
+import authReducer from './auth/reducer';
 
 export default combineReducers({
     setting: settingReducer,
-    posting: PostingReducer,
+    posting: postingReducer,
+    auth: authReducer,
 });

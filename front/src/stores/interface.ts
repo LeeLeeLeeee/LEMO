@@ -29,7 +29,17 @@ export interface PostingState {
     };
 }
 
+/* TODO:: user 타입 명시 */
+export interface AuthState {
+    user: any;
+    status: {
+        emailConfirmed: boolean;
+        emailConfirmedError: any;
+    };
+}
+
 export interface CombinedState {
     setting: SettingState;
     posting: PostingState;
+    auth: AuthState;
 }
