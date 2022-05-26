@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import tw from 'twin.macro';
 
 import { useSettingsDispatch } from '@/stores/setting/hook';
-import { LightningIcon, MoonIcon, SunIcon } from '@/icons';
+import { LightningIcon, LogInIcon, MoonIcon, SunIcon } from '@/icons';
 import { CombinedState } from '@/stores/interface';
 
 import IconButton from './button/IconButton';
@@ -38,6 +38,10 @@ const Header = styled.div((props: HeaderProps) => [
     {
         transition: 'top .3s',
         top: props.visible ? '0px' : '-60px',
+        '& > .right-menu': {
+            display: 'flex',
+            gap: '10px',
+        },
     },
 ]);
 
@@ -52,9 +56,12 @@ function HeaderComponent() {
     const handleLightClick = () => {
         setThemeMode('dark');
     };
+
     const handleMoonClick = () => {
         setThemeMode('light');
     };
+
+    const handleLogInOpen = () => {};
 
     return (
         <Header visible={headerVisible}>
@@ -64,7 +71,12 @@ function HeaderComponent() {
             >
                 <LightningIcon />
             </span>
-            <div>
+            <div className="right-menu">
+                <IconButton
+                    onClick={handleLogInOpen}
+                    color="light"
+                    iconNode={<LogInIcon />}
+                />
                 {mode === 'light' ? (
                     <IconButton
                         color="light"
