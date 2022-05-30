@@ -28,6 +28,10 @@ interface State {
     ownVisible: boolean;
 }
 
+interface DialogChildrenProps {
+    closeModal?: () => void;
+}
+
 const calculateWidth = (size?: SizeType) => {
     switch (size) {
         case 'small':
@@ -67,6 +71,7 @@ const DialogWrapper = styled.div<Partial<Props>>((props) => [
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
+            borderBottom: '1px solid #e5e5e5',
             '& > span': {
                 fontWeight: 'bold',
             },
@@ -100,17 +105,20 @@ class Diaglog extends React.Component<Props, State> {
 
     render() {
         if (!this.props.visible) return <></>;
-
+        const container = document.getElementById('modal-container');
+        if (container === null) return <></>;
         return ReactDOM.createPortal(
             <DialogWrapper size={this.props.size}>
                 {this.renderHeader()}
-                {this.props.children}
+                {React.cloneElement(this.props.children as any, {
+                    handleClose: this.props.handleClose,
+                })}
                 {this.props.footer}
             </DialogWrapper>,
-            document.body
+            container
         );
     }
 }
 
 export default Diaglog;
-export type { Props as DialogProps };
+export type { Props as DialogProps, DialogChildrenProps };
