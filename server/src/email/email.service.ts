@@ -47,7 +47,6 @@ export default class EmailService {
 
     confirmToken(token: string) {
         const { receipient } = this.jwtService.verify(token);
-        console.log(receipient);
-        return true;
+        return receipient;
     }
 }

@@ -2,7 +2,11 @@ import {
     Body,
     ClassSerializerInterceptor,
     Controller,
+    Header,
+    HttpCode,
+    HttpStatus,
     Post,
+    Res,
     UseInterceptors,
 } from '@nestjs/common';
 import { Public } from 'decorator';
@@ -22,9 +26,11 @@ export class EmailController {
     }
 
     @Post('email-confirm')
+    @HttpCode(HttpStatus.OK)
     @Public()
     async confirm(@Body() confirmationData: EmailConfirmationDto) {
         const { token } = confirmationData;
-        this.emailService.confirmToken(token);
+        const email = this.emailService.confirmToken(token);
+        return { email };
     }
 }
