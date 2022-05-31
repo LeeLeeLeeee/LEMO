@@ -16,6 +16,7 @@ import SVGPencilIcon from './svgs/pencil.svg';
 import SVGUser from './svgs/user.svg';
 import SVGLogin from './svgs/login.svg';
 import SVGClose from './svgs/close.svg';
+import SVGLock from './svgs/lock.svg';
 
 export const GithubIcon = React.memo((): JSX.Element => <SVGGithubIcon />);
 export const EmailIcon = React.memo((): JSX.Element => <SVGEmailIcon />);
@@ -39,3 +40,4 @@ export const PencilIcon = React.memo((): JSX.Element => <SVGPencilIcon />);
 export const UserIcon = React.memo((): JSX.Element => <SVGUser />);
 export const LogInIcon = React.memo((): JSX.Element => <SVGLogin />);
 export const CloseIcon = React.memo((): JSX.Element => <SVGClose />);
+export const LockIcon = React.memo((): JSX.Element => <SVGLock />);
