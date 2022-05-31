@@ -46,6 +46,17 @@ export class Exception extends Error {
 export class ServerError extends Exception {
     constructor(message: any, code: number) {
         super(message);
-        console.log(code);
+
+        Object.defineProperties(
+            this,
+            Object.freeze({
+                code: {
+                    get: () => code
+                },
+                message: {
+                    get: () => message
+                }
+            })
+        );
     }
 }

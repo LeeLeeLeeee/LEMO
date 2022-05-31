@@ -1,4 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import Email from 'email';
 import { Post as PostDto } from 'server-module/node_modules/@prisma/client';
 import { CreatePostDto, UpdatePostDto } from 'server-module/src/interfaces';
 
@@ -31,6 +32,7 @@ export type CoreInstanceInterface = {
     common: {
         getImageByName: (fileName: string) => Promise<string>
     }
+    email: Email,
 };
 
 export type FileUploadType = {
