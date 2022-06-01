@@ -13,7 +13,7 @@ a:hover {
 @tailwind utilities;
 
 .light {
-    --color-primary: 39 83 255;
+    --color-primary: 33 85 205;
     --color-secondary: 116 149 154;
     --color-success: 151 219 174;
     --color-error: 255 107 107;
