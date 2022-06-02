@@ -1,8 +1,7 @@
 import _core from 'core/src/index';
-import { CoreInstanceInterface } from 'core/src/interface';
 
-const core: CoreInstanceInterface = _core;
+const core = _core;
 (globalThis as any).core = core;
-export default function getCore(): CoreInstanceInterface {
+export default function getCore() {
     return core;
 }

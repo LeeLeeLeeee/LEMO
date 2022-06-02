@@ -38,3 +38,5 @@ export type ColorType =
     | 'info'
     | 'dark'
     | 'light';
+
+export type VariantType = 'contained' | 'outlined';
