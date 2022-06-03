@@ -33,7 +33,11 @@ function MainLayout(props: Props, ref: any) {
         <>
             {meta}
             <LayoutContainer ref={ref} {...rest}>
-                <FlexContainer $isStretch $gap={GAP_SIZE.medium}>
+                <FlexContainer
+                    $justify="center"
+                    $isStretch
+                    $gap={GAP_SIZE.medium}
+                >
                     {children}
                 </FlexContainer>
             </LayoutContainer>

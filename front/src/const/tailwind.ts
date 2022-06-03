@@ -40,6 +40,16 @@ export const FONT_COLOR: Record<ColorType, TwStyle> = {
     success: tw`text-success`,
 };
 
+export const BORDER_COLOR: Record<ColorType, TwStyle> = {
+    primary: tw`border-primary`,
+    dark: tw`border-black`,
+    error: tw`border-error`,
+    info: tw`border-blue-300`,
+    light: tw`border-gray-50`,
+    secondary: tw`border-secondary`,
+    success: tw`border-success`,
+};
+
 export const TAILWIND_PADDING = {
     all: [
         tw`p-0`,
