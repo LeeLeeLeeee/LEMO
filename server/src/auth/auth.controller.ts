@@ -19,10 +19,10 @@ import { LocalAuthenticationGuard } from './passport/local.guard';
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
+    @Public()
     @Post('register')
     async register(@Body() userData: CreateUserDto) {
-        const { email, name, password } = userData;
-        await this.authService.register({ email, name, password });
+        await this.authService.register({ ...userData });
     }
 
     @Public()

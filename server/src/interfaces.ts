@@ -1,6 +1,9 @@
 import { Post as PostModel, User as UserModel } from '@prisma/client';
 
-export type CreateUserDto = Pick<UserModel, 'email' | 'password' | 'name'>;
+export type CreateUserDto = Pick<
+    UserModel,
+    'email' | 'password' | 'name' | 'description'
+>;
 
 export type CreatePostDto = Pick<
     PostModel,

@@ -1,3 +1,3 @@
 export const PostgresErrorCode = {
-    UniqueViolation: '23505',
+    UniqueViolation: 'P2002',
 } as const;
