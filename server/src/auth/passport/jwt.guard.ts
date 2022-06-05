@@ -21,6 +21,8 @@ export class JWTAuthenticationGuard extends AuthGuard('jwt') {
     // @ts-ignore: Unreachable code error
     async handleRequest(err, user, info, context, status) {
         try {
+            if (user) return { ...user };
+
             const { refresh_token } = context.getRequest().cookies;
             const response = context.getResponse();
             if (refresh_token === undefined) {
@@ -37,12 +39,11 @@ export class JWTAuthenticationGuard extends AuthGuard('jwt') {
                 const refreshCookie =
                     this.authService.getCookieWithRefreshJwtToken(userID);
                 response.setHeader('Set-Cookie', [accessCookie, refreshCookie]);
+                return { userID };
             }
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
-
-        return null;
     }
     canActivate(context: ExecutionContext) {
         const isPublic = this.reflector.get<boolean>(

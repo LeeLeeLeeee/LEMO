@@ -18,6 +18,8 @@ import { PostModule } from './post/post.module';
 import { RedisModule } from './redis/redis.module';
 import EmailService from './email/email.service';
 import { EmailModule } from './email/email.module';
+import { UserService } from './user/user.service';
+import { UserModule } from './user/user.module';
 
 ConfigModule.forRoot({
     validationSchema: Joi.object({
@@ -57,6 +59,7 @@ ConfigModule.forRoot({
         }),
         RedisModule,
         EmailModule,
+        UserModule,
     ],
     controllers: [AppController],
     providers: [
@@ -69,6 +72,7 @@ ConfigModule.forRoot({
             useClass: JWTAuthenticationGuard,
         },
         EmailService,
+        UserService,
     ],
 })
 export class AppModule implements NestModule {
