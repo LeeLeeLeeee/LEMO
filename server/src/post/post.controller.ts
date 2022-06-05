@@ -12,13 +12,17 @@ import {
     Query,
     UploadedFile,
     UseInterceptors,
+    UsePipes,
+    ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 import { Post as PostModel } from '@prisma/client';
+import { CursorDto } from 'app.dto';
 import { Public } from 'decorator';
-import { CreatePostDto } from 'interfaces';
 import { editFileName, imageFileFilter } from 'lib/file';
 import { diskStorage } from 'multer';
+import { CreatePostDto, UpdatePostDto } from './post.dto';
 import { PostService } from './post.service';
 
 interface PostModelWithCursor {
@@ -26,19 +30,16 @@ interface PostModelWithCursor {
     cursor: number;
 }
 
-interface FeedProps {
-    cursor: number;
-    pageSize: number;
-}
-
 @Controller('post')
+@ApiTags('post')
 export class PostController {
     constructor(private readonly postService: PostService) {}
 
     @Get('/feed')
+    @UsePipes(new ValidationPipe({ transform: true }))
     @Public()
     async getPublishedPosts(
-        @Query() feedProps: FeedProps,
+        @Query() feedProps: CursorDto,
     ): Promise<PostModelWithCursor> {
         const { cursor = -1, pageSize } = feedProps;
 
@@ -138,7 +139,7 @@ export class PostController {
     @Put('/:id')
     async updatePost(
         @Param('id', ParseIntPipe) id: number,
-        @Body() resBody: Omit<PostModel, 'id' | 'authorId'>,
+        @Body() resBody: UpdatePostDto,
     ): Promise<PostModel> {
         return this.postService.updatePost({
             where: { id },

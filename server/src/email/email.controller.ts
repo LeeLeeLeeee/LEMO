@@ -2,18 +2,18 @@ import {
     Body,
     ClassSerializerInterceptor,
     Controller,
-    Header,
     HttpCode,
     HttpStatus,
     Post,
-    Res,
     UseInterceptors,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'decorator';
 import { EmailConfirmationDto, EmaileDto } from './email.dto';
 import EmailService from './email.service';
 
 @Controller('email')
+@ApiTags('email')
 @UseInterceptors(ClassSerializerInterceptor)
 export class EmailController {
     constructor(private readonly emailService: EmailService) {}

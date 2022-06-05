@@ -1,5 +1,6 @@
 import {
     Body,
+    ClassSerializerInterceptor,
     Controller,
     HttpCode,
     HttpStatus,
@@ -7,15 +8,19 @@ import {
     Req,
     Res,
     UseGuards,
+    UseInterceptors,
 } from '@nestjs/common';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { Public } from 'decorator';
 import { Response } from 'express';
-import { CreateUserDto } from 'interfaces';
+import { CreateUserDto, SignInUserDto } from './auth.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthenticationGuard } from './passport/local.guard';
 
 @Controller('auth')
+@ApiTags('auth')
+@UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
@@ -28,6 +33,7 @@ export class AuthController {
     @Public()
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthenticationGuard)
+    @ApiBody({ description: '유저 로그인', type: [SignInUserDto] })
     @Post('signIn')
     async signIn(
         @Req() request: { user: User } & Request,

@@ -28,6 +28,7 @@
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/serve-static": "^2.2.2",
+    "@nestjs/swagger": "^5.2.1",
     "@prisma/client": "^3.12.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cache-manager-redis-store": "^2.0.1",
@@ -48,6 +49,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.4.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
