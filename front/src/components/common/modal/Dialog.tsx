@@ -24,10 +24,6 @@ interface Props {
     handleClose?: () => void;
 }
 
-interface State {
-    ownVisible: boolean;
-}
-
 interface DialogChildrenProps {
     closeModal?: () => void;
 }
@@ -61,8 +57,8 @@ const calculateHeight = (size?: SizeType) => {
 const DialogWrapper = styled.div<Partial<Props>>((props) => [
     tw`bg-white shadow-md absolute inline-flex flex-col top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 rounded-md font-sans-kr`,
     {
-        width: calculateWidth(props.size),
-        height: calculateHeight(props.size),
+        minWidth: calculateWidth(props.size),
+        minHeight: calculateHeight(props.size),
         '& > div': {
             padding: '0px 10px',
         },
@@ -79,8 +75,24 @@ const DialogWrapper = styled.div<Partial<Props>>((props) => [
     },
 ]);
 
-class Diaglog extends React.Component<Props, State> {
-    static defaultProps: Partial<Props> = { animateTime: 500, size: 'medium' };
+class Diaglog extends React.Component<Props> {
+    static defaultProps: Partial<Props> = {
+        animateTime: 500,
+        size: 'medium',
+    };
+
+    constructor(props: any) {
+        super(props);
+        this.closeDialog = this.closeDialog.bind(this);
+        this.renderHeader = this.renderHeader.bind(this);
+    }
+
+    private closeDialog() {
+        if (typeof this.props.handleClose === 'function')
+            this.props.handleClose();
+        if (typeof this.props.afterClose === 'function')
+            this.props.afterClose();
+    }
 
     private renderHeader() {
         if (this.props.title === undefined) return <></>;
@@ -89,7 +101,7 @@ class Diaglog extends React.Component<Props, State> {
             <div className="dialog-header">
                 <span>{this.props.title}</span>
                 <IconButton
-                    onClick={this.props.handleClose}
+                    onClick={this.closeDialog}
                     iconNode={<CloseIcon />}
                 />
             </div>

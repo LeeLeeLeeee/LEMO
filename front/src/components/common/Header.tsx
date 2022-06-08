@@ -10,6 +10,10 @@ import { LightningIcon, LogInIcon, MoonIcon, SunIcon } from '@/icons';
 import { CombinedState } from '@/stores/interface';
 
 import IconButton from './button/IconButton';
+import Modal from './modal/Modal';
+import EmailVerificationModal from '../home/EmailVerificationModal';
+import { rootContext } from '../rootContext';
+import CircleImage from './CircleImage';
 
 interface HeaderProps {
     visible: boolean;
@@ -46,10 +50,14 @@ const Header = styled.div((props: HeaderProps) => [
 ]);
 
 function HeaderComponent() {
-    const { mode, headerVisible } = useSelector((state: CombinedState) => ({
-        mode: state.setting.mode,
-        headerVisible: state.setting.headerVisible,
-    }));
+    const { mode, headerVisible, user } = useSelector(
+        (state: CombinedState) => ({
+            mode: state.setting.mode,
+            headerVisible: state.setting.headerVisible,
+            user: state.auth.user,
+        })
+    );
+    const { setModalOpen, setModalClose } = rootContext.useModal();
 
     const router = useRouter();
     const { setThemeMode } = useSettingsDispatch();
@@ -61,7 +69,13 @@ function HeaderComponent() {
         setThemeMode('light');
     };
 
-    const handleLogInOpen = () => {};
+    const handleLogInOpen = () => {
+        setModalOpen('email-verification');
+    };
+
+    const handleLogInClose = () => {
+        setModalClose('email-verification');
+    };
 
     return (
         <Header visible={headerVisible}>
@@ -72,11 +86,19 @@ function HeaderComponent() {
                 <LightningIcon />
             </span>
             <div className="right-menu">
-                <IconButton
-                    onClick={handleLogInOpen}
-                    color="light"
-                    iconNode={<LogInIcon />}
-                />
+                {user ? (
+                    <CircleImage
+                        width={40}
+                        height={40}
+                        imagePath={user.profileImage}
+                    />
+                ) : (
+                    <IconButton
+                        onClick={handleLogInOpen}
+                        color="light"
+                        iconNode={<LogInIcon />}
+                    />
+                )}
                 {mode === 'light' ? (
                     <IconButton
                         color="light"
@@ -91,6 +113,14 @@ function HeaderComponent() {
                     />
                 )}
             </div>
+            <Modal
+                dialogID="email-verification"
+                size="small"
+                title="이메일 인증"
+                handleClose={handleLogInClose}
+            >
+                <EmailVerificationModal />
+            </Modal>
         </Header>
     );
 }

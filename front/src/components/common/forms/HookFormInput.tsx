@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { Control, useController } from 'react-hook-form';
 
 import { InputAttributeProps, SizeType } from '@/components/interface';
-import { FolderIcon } from '@/icons';
+import { FolderIcon, LockIcon } from '@/icons';
 
 interface Props extends InputAttributeProps {
     inputSize?: SizeType;
@@ -13,6 +13,8 @@ interface Props extends InputAttributeProps {
     type?: string;
     control?: Control;
     name?: string;
+    readonly?: boolean;
+    disabled?: boolean;
 }
 
 const FONT_SIZE: Record<SizeType, string> = {
@@ -34,7 +36,7 @@ const InputLabel = styled.label<Props>`
     padding: ${(props) => PADDING[props.inputSize || 'medium']};
     box-sizing: border-box;
     min-height: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     ${tw`
         relative
         bg-white
@@ -46,13 +48,11 @@ const InputLabel = styled.label<Props>`
 
     &:focus-within,
     &.input-has-value {
-        ${tw`border-transparent`}
+        ${tw`border`}
         & > span {
             top: 20%;
             ${tw`text-primary`}
         }
-        box-shadow: rgba(var(--color-primary) / 90) 0px 4px 8px -2px,
-            rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     }
 
     &.input-has-error {
@@ -71,8 +71,8 @@ const InputLabel = styled.label<Props>`
 
     & > svg {
         position: absolute;
-        top: -12px;
-        left: -12px;
+        top: -15px;
+        left: -15px;
         fill: #ffc107;
         stroke: #ffc107;
         transform: rotate(-15deg);
@@ -86,6 +86,10 @@ const InputLabel = styled.label<Props>`
     & > input {
         padding-top: ${(props) => FONT_SIZE[props.inputSize || 'medium']};
         ${tw`w-full`}
+    }
+
+    & > input:read-only {
+        color: gray;
     }
 
     & > input[type='file'] {
@@ -120,6 +124,7 @@ function HookFormInput(props: Omit<Props, 'placeholder'>): JSX.Element {
         name = '',
         control,
         defaultValue = '',
+        readonly,
         ...rest
     } = props;
 
@@ -153,6 +158,7 @@ function HookFormInput(props: Omit<Props, 'placeholder'>): JSX.Element {
                 <InputElement
                     type={type}
                     value={type === 'file' ? fileName : value}
+                    readOnly={readonly}
                     ref={ref}
                     onChange={type === 'file' ? handleFileChange : onChange}
                     onBlur={onBlur}
@@ -161,6 +167,7 @@ function HookFormInput(props: Omit<Props, 'placeholder'>): JSX.Element {
                 {type === 'file' && value && (
                     <div className="file-value">{fileName.split('\\')[2]}</div>
                 )}
+                {readonly && <LockIcon />}
                 {error && (
                     <InputErrorTextElement>
                         {error.message}
