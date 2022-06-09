@@ -32,9 +32,14 @@ export interface PostingState {
 /* TODO:: user 타입 명시 */
 export interface AuthState {
     user: any;
+    email: string;
     status: {
         emailConfirmed: boolean;
         emailConfirmedError: any;
+        emailSended: boolean;
+        emailSendedError: any;
+        registered: boolean;
+        registeredError: any;
     };
 }
 
