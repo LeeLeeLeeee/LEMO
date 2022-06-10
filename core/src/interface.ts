@@ -1,7 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import Email from 'email';
-import { Post as PostDto } from 'server-module/node_modules/@prisma/client';
-import { CreatePostDto, UpdatePostDto } from 'server-module/src/interfaces';
+
+import { Post as PostDto, User as UserDto } from 'server-module/node_modules/@prisma/client';
 
 export interface ApiHandler<T> {
     getList: (option: Partial<T>) => Promise<AxiosResponse<T[], any>>,
@@ -17,26 +16,8 @@ export interface AxiosParamType {
     config?: AxiosRequestConfig<any> | undefined
 }
 
-export type CoreInstanceInterface = {
-    post: ApiHandler<PostDto> & {
-        apiName: string;
-        uploadImage: (file: File) => Promise<{
-            originalName: string,
-            filename: string
-        }>;
-        getFeeds: (pageSize?: number, cursor?: number) => Promise<{
-            posts: PostDto[],
-            cursor: number
-        }>;
-    },
-    common: {
-        getImageByName: (fileName: string) => Promise<string>
-    }
-    email: Email,
-};
-
 export type FileUploadType = {
     image: File,
 };
 
-export type { PostDto, CreatePostDto, UpdatePostDto };
+export type { PostDto, UserDto };
