@@ -13,4 +13,9 @@ export default class Auth {
         const response = await serverProxy.post(`${this.apiName}/signIn`, { email, password });
         return response.data;
     }
+
+    async signOut() {
+        const response = await serverProxy.post(`${this.apiName}/signOut`);
+        return response.data;
+    }
 }

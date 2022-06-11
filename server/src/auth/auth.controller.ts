@@ -26,8 +26,14 @@ export class AuthController {
 
     @Public()
     @Post('register')
-    async register(@Body() userData: CreateUserDto) {
-        await this.authService.register({ ...userData });
+    async register(@Body() userData: CreateUserDto, @Res() response: Response) {
+        const user = await this.authService.register({ ...userData });
+        const accessCookie = this.authService.getCookieWithJwtToken(user.id);
+        const refreshCookie = this.authService.getCookieWithRefreshJwtToken(
+            user.id,
+        );
+        response.setHeader('Set-Cookie', [accessCookie, refreshCookie]);
+        return response.send(user);
     }
 
     @Public()
@@ -46,5 +52,19 @@ export class AuthController {
         );
         response.setHeader('Set-Cookie', [accessCookie, refreshCookie]);
         return response.send(user);
+    }
+
+    @Post('signOut')
+    @HttpCode(HttpStatus.OK)
+    async logout(
+        @Req() request: { user: any } & Request,
+        @Res() response: Response,
+    ) {
+        const {
+            user: { userID },
+        } = request;
+        const cookies = await this.authService.clearJwtTokenCookie(userID);
+        response.setHeader('Set-Cookie', cookies);
+        return response.send('ok');
     }
 }

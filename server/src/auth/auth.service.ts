@@ -97,11 +97,26 @@ export class AuthService {
         )}`;
     }
 
+    public async clearJwtTokenCookie(userID) {
+        await this.redisService.delete(userID);
+        return [
+            `Authentication=; HttpOnly; Path=/; Max-Age=${Date.now()}`,
+            `refresh_token=; HttpOnly; Path=/; Max-Age=${Date.now()}`,
+        ];
+    }
+
     public async checkRefreshToken(refreshToken: string): Promise<any> {
-        const { userID } = this.jwtService.verify(refreshToken, {
-            secret: this.configService.get('REFRESH_TOKEN_SECRET'),
-        });
-        const key = await this.redisService.get(userID);
-        return key === refreshToken ? userID : null;
+        try {
+            const { userID } = this.jwtService.verify(refreshToken, {
+                secret: this.configService.get('REFRESH_TOKEN_SECRET'),
+            });
+            const key = await this.redisService.get(userID);
+            return key === refreshToken ? userID : null;
+        } catch (error) {
+            throw new HttpException(
+                'Fail to sign out',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
     }
 }
