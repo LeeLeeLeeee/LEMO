@@ -40,6 +40,8 @@ export interface AuthState {
         emailSendedError: any;
         registered: boolean;
         registeredError: any;
+        signInError: any;
+        signOutError: any;
     };
 }
 

@@ -61,6 +61,31 @@ export default function useAuthDispatch() {
         []
     );
 
+    const signIn = useCallback(
+        (email: string, password: string): ThunkAction =>
+            async (thunkDispatch: any) => {
+                try {
+                    const user = await core.auth.signIn(email, password);
+                    thunkDispatch(authActions.signInSuccess(user));
+                } catch (error) {
+                    thunkDispatch(authActions.signInFailed(error));
+                }
+            },
+        []
+    );
+
+    const signOut = useCallback(
+        (): ThunkAction => async (thunkDispatch: any) => {
+            try {
+                await core.auth.signOut();
+                thunkDispatch(authActions.signOutSuccess());
+            } catch (error) {
+                thunkDispatch(authActions.signOutFailed(error));
+            }
+        },
+        []
+    );
+
     const resetStatus = useCallback(() => {
         dispatch(authActions.resetAuthStatus());
     }, []);
@@ -87,5 +112,9 @@ export default function useAuthDispatch() {
             dispatch(register(...props)),
         getSelfAsync: (...props: Parameters<typeof getSelf>) =>
             dispatch(getSelf(...props)),
+        signInAsync: (...props: Parameters<typeof signIn>) =>
+            dispatch(signIn(...props)),
+        signOutAsync: (...props: Parameters<typeof signOut>) =>
+            dispatch(signOut(...props)),
     };
 }

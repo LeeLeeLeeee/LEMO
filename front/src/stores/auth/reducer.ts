@@ -6,11 +6,13 @@ const initialState: AuthState = {
     email: '',
     status: {
         emailConfirmed: false,
-        emailConfirmedError: false,
+        emailConfirmedError: null,
         emailSended: false,
-        emailSendedError: false,
+        emailSendedError: null,
         registered: false,
-        registeredError: false,
+        registeredError: null,
+        signInError: null,
+        signOutError: null,
     },
 };
 
@@ -61,6 +63,7 @@ export default function AuthReducer(
         case AuthActionsTypes.REGISTER_SUCCESS: {
             return {
                 ...state,
+                user: action.payload.user,
                 status: {
                     ...state.status,
                     registered: true,
@@ -86,6 +89,38 @@ export default function AuthReducer(
                     emailConfirmedError: null,
                     emailSended: false,
                     emailSendedError: null,
+                    signInError: null,
+                    signOutError: null,
+                },
+            };
+        }
+        case AuthActionsTypes.SIGN_IN_SUCCESS: {
+            return {
+                ...state,
+                user: action.payload.user,
+            };
+        }
+        case AuthActionsTypes.SIGN_IN_FAILED: {
+            return {
+                ...state,
+                status: {
+                    ...state.status,
+                    signInError: action.payload.error,
+                },
+            };
+        }
+        case AuthActionsTypes.SIGN_OUT_SUCCESS: {
+            return {
+                ...state,
+                user: undefined,
+            };
+        }
+        case AuthActionsTypes.SIGN_OUT_FAILED: {
+            return {
+                ...state,
+                status: {
+                    ...state.status,
+                    signOutError: action.payload.error,
                 },
             };
         }

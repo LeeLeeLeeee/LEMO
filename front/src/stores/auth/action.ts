@@ -9,6 +9,8 @@ export const AuthActionsTypes = {
     EMAIL_CONFIRM_FAILED: 'EMAIL_CONFIRM_FAILED',
     SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS',
     SIGN_IN_FAILED: 'SIGN_IN_FAILED',
+    SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS',
+    SIGN_OUT_FAILED: 'SIGN_OUT_FAILED',
     RESET_AUTH_STATUS: 'RESET_AUTH_STATUS',
     GET_SELF_SUCCESS: 'GET_SELF_SUCCESS',
     GET_SELF_FAILED: 'GET_SELF_FAILED',
@@ -31,6 +33,9 @@ export const authActions = {
     signInFailed: (error: any) =>
         createAction(AuthActionsTypes.SIGN_IN_FAILED, { error }),
     resetAuthStatus: () => createAction(AuthActionsTypes.RESET_AUTH_STATUS),
+    signOutSuccess: () => createAction(AuthActionsTypes.SIGN_OUT_SUCCESS),
+    signOutFailed: (error: any) =>
+        createAction(AuthActionsTypes.SIGN_OUT_FAILED, { error }),
     getSelfSuccess: (user: any) =>
         createAction(AuthActionsTypes.GET_SELF_SUCCESS, { user }),
     getSelfFailed: (error: any) =>
