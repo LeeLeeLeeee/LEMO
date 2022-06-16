@@ -77,12 +77,12 @@ function VerificationPage() {
     }, [isConfirmed, isError]);
 
     useEffect(() => {
-        if (registeredError.code === HTTP_STATUS.BAD_REQUEST) {
+        if (registeredError?.code === HTTP_STATUS.BAD_REQUEST) {
             message.error('이메일이 중복되었습니다.');
-        } else if (registeredError.code === HTTP_STATUS.SERVER_ERROR) {
+        } else if (registeredError?.code === HTTP_STATUS.SERVER_ERROR) {
             message.error('회원 가입에 실패하였습니다');
         }
-    }, [registeredError.code]);
+    }, [registeredError?.code]);
 
     useEffect(() => {
         if (registered) {
