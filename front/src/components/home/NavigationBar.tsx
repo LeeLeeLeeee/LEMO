@@ -1,7 +1,6 @@
 import React from 'react';
 
 import tw, { theme } from 'twin.macro';
-import Image from 'next/image';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
@@ -9,6 +8,7 @@ import { EmailIcon, GithubIcon, PencilIcon, PhoneIcon } from '@/icons';
 
 import ContainerFlex from '../common/ContainerFlex';
 import withHoverAnime from '../hoc/withHoverAnime';
+import CircleImage from '../common/CircleImage';
 
 const NavigationWrapper = tw(ContainerFlex)`
     w-64
@@ -17,12 +17,6 @@ const NavigationWrapper = tw(ContainerFlex)`
 
 const ProfileCard = styled(ContainerFlex)`
     ${tw`bg-white/80 h-[300px] flex-none w-full`}
-    & > span {
-        width: 100px;
-        border-radius: 100px;
-        overflow: hidden;
-        ${tw`shadow-lg`}
-    }
 `;
 
 const WritePostLabel = styled(ContainerFlex)`
@@ -57,9 +51,7 @@ function NavigationBar(): JSX.Element {
                 color="white"
                 $items="center"
             >
-                <span>
-                    <Image src="/스폰지밥.PNG" width={100} height={100} />
-                </span>
+                <CircleImage imagePath="/스폰지밥.PNG" />
                 <ContainerFlex tw="self-stretch" $direction="column">
                     <NameTitle>이영현</NameTitle>
                     <SubTitle>Web Developer</SubTitle>
