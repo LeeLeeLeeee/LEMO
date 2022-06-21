@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Post, Prisma } from '@prisma/client';
 import { PrismaService } from 'prisma.service';
 
@@ -9,9 +9,18 @@ export class PostService {
     async post(
         postWhereUniqueInput: Prisma.PostWhereUniqueInput,
     ): Promise<Post | null> {
-        return this.prisma.post.findUnique({
-            where: postWhereUniqueInput,
-        });
+        let posts = null;
+        try {
+            posts = await this.prisma.post.findUnique({
+                where: postWhereUniqueInput,
+            });
+        } catch (error) {
+            throw new HttpException(
+                'error for get the post list',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+        return posts;
     }
 
     async posts(params: {
@@ -22,19 +31,37 @@ export class PostService {
         orderBy?: Prisma.PostOrderByWithRelationInput;
     }): Promise<Post[]> {
         const { skip, take, cursor, where, orderBy } = params;
-        return this.prisma.post.findMany({
-            skip,
-            take,
-            cursor,
-            where,
-            orderBy,
-        });
+        let posts = null;
+        try {
+            posts = await this.prisma.post.findMany({
+                skip,
+                take,
+                cursor,
+                where,
+                orderBy,
+            });
+        } catch (error) {
+            throw new HttpException(
+                'error for get the post list',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+        return posts;
     }
 
     async createPost(data: Prisma.PostCreateInput): Promise<Post> {
-        return this.prisma.post.create({
-            data,
-        });
+        let post = null;
+        try {
+            post = this.prisma.post.create({
+                data,
+            });
+        } catch (error) {
+            throw new HttpException(
+                'error for create a post',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+        return post;
     }
 
     async updatePost(params: {
@@ -42,15 +69,39 @@ export class PostService {
         data: Prisma.PostUpdateInput;
     }): Promise<Post> {
         const { data, where } = params;
-        return this.prisma.post.update({
-            data,
-            where,
-        });
+        let post = null;
+        try {
+            post = this.prisma.post.update({
+                data,
+                where,
+            });
+        } catch (error) {
+            throw new HttpException(
+                'error for update a post',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+        return post;
     }
 
     async deletePost(where: Prisma.PostWhereUniqueInput): Promise<Post> {
         return this.prisma.post.delete({
             where,
         });
+    }
+
+    async deletePostMany(where: Prisma.PostWhereInput) {
+        let count = null;
+        try {
+            count = await this.prisma.post.deleteMany({
+                where,
+            });
+        } catch (error) {
+            throw new HttpException(
+                'error for delete the post list',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+        return count;
     }
 }
