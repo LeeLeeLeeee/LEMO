@@ -46,9 +46,9 @@ export default class Post implements ApiHandler<PostDto> {
         return response;
     }
 
-    async uploadImage(image: File) {
+    async uploadImage(image: File, defaultFileName?: string) {
         const formData = new FormData();
-        formData.append('image', image);
+        formData.append('image', image, defaultFileName);
         const response = await serverProxy.post<FileUploadType>(`${this.apiName}/upload`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
