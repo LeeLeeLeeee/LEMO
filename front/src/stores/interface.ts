@@ -29,6 +29,11 @@ export interface PostingState {
     };
 }
 
+export interface ActionState {
+    type: string;
+    payload: any;
+}
+
 /* TODO:: user 타입 명시 */
 export interface AuthState {
     user: any;
@@ -42,6 +47,8 @@ export interface AuthState {
         registeredError: any;
         signInError: any;
         signOutError: any;
+        selfUpdated: boolean;
+        selfUpdatedError: any;
     };
 }
 
