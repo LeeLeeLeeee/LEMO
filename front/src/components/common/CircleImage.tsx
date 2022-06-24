@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import React, { HTMLAttributes } from 'react';
 
 import styled from '@emotion/styled';
 import Image from 'next/image';
@@ -33,7 +33,7 @@ interface Props extends HTMLAttributes<HTMLSpanElement> {
 
 const DEFAULT_SCALE = 1.5;
 const DEFAULT_SIZE = 100;
-function CircleImage(props: Props) {
+function CircleImage(props: Props, ref: any) {
     const {
         imagePath,
         width = DEFAULT_SIZE,
@@ -60,6 +60,7 @@ function CircleImage(props: Props) {
     return (
         <CircleWrapper
             {...rest}
+            ref={ref}
             scale={DEFAULT_SCALE}
             width={width}
             height={height}
@@ -69,4 +70,4 @@ function CircleImage(props: Props) {
     );
 }
 
-export default CircleImage;
+export default React.forwardRef(CircleImage);
