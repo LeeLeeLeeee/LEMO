@@ -2,6 +2,7 @@ import {
     Body,
     ClassSerializerInterceptor,
     Controller,
+    Delete,
     HttpCode,
     HttpStatus,
     Post,
@@ -14,7 +15,7 @@ import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { Public } from 'decorator';
 import { Response } from 'express';
-import { CreateUserDto, SignInUserDto } from './auth.dto';
+import { CreateUserDto, DeleteUserDto, SignInUserDto } from './auth.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthenticationGuard } from './passport/local.guard';
 
@@ -33,7 +34,7 @@ export class AuthController {
             user.id,
         );
         response.setHeader('Set-Cookie', [accessCookie, refreshCookie]);
-        return response.send(user);
+        response.send(user);
     }
 
     @Public()
@@ -51,7 +52,7 @@ export class AuthController {
             user.id,
         );
         response.setHeader('Set-Cookie', [accessCookie, refreshCookie]);
-        return response.send(user);
+        response.send(user);
     }
 
     @Post('signOut')
@@ -65,6 +66,22 @@ export class AuthController {
         } = request;
         const cookies = await this.authService.clearJwtTokenCookie(userID);
         response.setHeader('Set-Cookie', cookies);
-        return response.send('ok');
+        response.send('ok');
+    }
+
+    @Delete()
+    @HttpCode(HttpStatus.OK)
+    async delete(
+        @Req() request: { user: any } & Request,
+        @Res() response: Response,
+        @Body() body: DeleteUserDto,
+    ) {
+        const {
+            user: { userID },
+        } = request;
+        await this.authService.deleteUser(userID, body.password);
+        const cookies = await this.authService.clearJwtTokenCookie(userID);
+        response.setHeader('Set-Cookie', cookies);
+        response.send('ok');
     }
 }

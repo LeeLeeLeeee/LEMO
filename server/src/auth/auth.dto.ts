@@ -33,3 +33,10 @@ export class SignInUserDto {
     @ApiProperty()
     password: string;
 }
+
+export class DeleteUserDto {
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    password: string;
+}

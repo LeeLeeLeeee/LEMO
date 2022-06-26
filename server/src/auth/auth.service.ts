@@ -60,6 +60,22 @@ export class AuthService {
         }
     }
 
+    async deleteUser(userID: number, password: string) {
+        try {
+            const user = await this.prisima.user.findUnique({
+                where: { id: userID },
+            });
+            await this.verifyPassword(password, user.password);
+            await this.prisima.user.delete({ where: { id: userID } });
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(
+                'Fail to delete user',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+    }
+
     private async verifyPassword(
         plainTextPassword: string,
         hashedPassword: string,

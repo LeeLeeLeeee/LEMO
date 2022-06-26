@@ -18,7 +18,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { Post as PostModel } from '@prisma/client';
-import { CursorDto } from 'app.dto';
+import { GetPostDto } from 'app.dto';
 import { Public } from 'decorator';
 import { editFileName, imageFileFilter } from 'lib/file';
 import { diskStorage } from 'multer';
@@ -39,12 +39,12 @@ export class PostController {
     @UsePipes(new ValidationPipe({ transform: true }))
     @Public()
     async getPublishedPosts(
-        @Query() feedProps: CursorDto,
+        @Query() feedProps: GetPostDto,
     ): Promise<PostModelWithCursor> {
-        const { cursor = -1, pageSize } = feedProps;
+        const { cursor = -1, pageSize, authorID } = feedProps;
 
         const options: any = {
-            where: { published: true },
+            where: { published: true, authorId: authorID },
             orderBy: { id: 'desc' },
             take: +pageSize,
         };
