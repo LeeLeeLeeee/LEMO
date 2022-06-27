@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { CodeJar } from 'codejar-compat';
+import { CodeJar } from 'codejar';
 import tw from 'twin.macro';
 import styled from '@emotion/styled';
 import { useSelector } from 'react-redux';
@@ -57,9 +57,9 @@ function MarkDownEditor(props: Props): JSX.Element {
         if (mdEditor !== null) {
             codeJar.current = CodeJar(mdEditor, highligher, { tab: '\t' });
             codeJar.current.updateCode(code);
-            codeJar.current.onUpdate((editorCode: string) =>
-                updateCode(editorCode)
-            );
+            codeJar.current.onUpdate((editorCode: string) => {
+                updateCode(editorCode);
+            });
             setCodeJarInstance(codeJar.current);
             mdEditor.focus();
         }

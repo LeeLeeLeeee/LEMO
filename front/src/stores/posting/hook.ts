@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { CreatePostDto, UpdatePostDto } from 'core/src/interface';
+import { PostDto } from 'core/src/interface';
 
 import { ThunkAction } from '@/lib/redux';
 import getCore from '@/core-wrapper';
-import { createImageMarkDownSymbol } from '@/lib/editor';
+import { concatText, createImageMarkDownSymbol } from '@/lib/editor';
 
 import { Feed } from '../interface';
 import { postingActions } from './action';
@@ -39,12 +39,16 @@ export function usePostingDispatch() {
                         posting: { code, codeJarInstance },
                     } = getState();
                     if (file?.type.includes('image')) {
+                        const position = codeJarInstance.save();
                         const data = await core.post.uploadImage(file);
                         const imageText = createImageMarkDownSymbol(
                             data.filename
                         );
-                        codeJarInstance.updateCode(`${code}\n ${imageText}`);
-                        updateCode(`${code}\n ${imageText}`);
+                        codeJarInstance.updateCode(
+                            concatText(code, imageText, position.start)
+                        );
+                        codeJarInstance.restore(position);
+                        updateCode(concatText(code, imageText, position.start));
                     }
                 } catch (error: any) {
                     throw new Error(error);
@@ -55,7 +59,10 @@ export function usePostingDispatch() {
     );
 
     const savePostThunk = useCallback(
-        (data: CreatePostDto | UpdatePostDto, id?: number): ThunkAction =>
+        (
+                data: Partial<PostDto & { email: string }>,
+                id?: number
+            ): ThunkAction =>
             async (thunkDispatch) => {
                 thunkDispatch(postingActions.savePost());
                 try {
@@ -73,7 +80,7 @@ export function usePostingDispatch() {
     );
 
     const getFeedsThunk = useCallback(
-        (pageSize?: number): ThunkAction =>
+        (pageSize: number = 1, authorID?: number): ThunkAction =>
             async (thunkDispatch, getState) => {
                 thunkDispatch(postingActions.getFeed());
                 const state = getState();
@@ -83,7 +90,11 @@ export function usePostingDispatch() {
                     },
                 } = state;
                 try {
-                    const data = await core.post.getFeeds(pageSize, cursor);
+                    const data = await core.post.getFeeds(
+                        pageSize,
+                        cursor,
+                        authorID
+                    );
                     const feeds = data.posts.map<Feed>((post: any) => ({
                         createdAt: post.createdAt,
                         id: post.id,

@@ -9,7 +9,7 @@ import { CombinedState } from '@/stores/interface';
 
 const PreviewWrapper = styled.div`
     width: 100%;
-    max-width: 1000px;
+    max-width: 2400px;
     height: 100%;
     background-color: white;
     border-radius: 10px;

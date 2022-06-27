@@ -5,8 +5,9 @@ import { ImageUploadIcon } from '@/icons';
 import IconButton from '@/components/common/button/IconButton';
 import { usePostingDispatch } from '@/stores/posting/hook';
 import { rootContext } from '@/components/rootContext';
+import Tooltip from '@/components/common/Tooltip';
 
-function MarkDownEditorMenu(): JSX.Element {
+function MarkDownHelperMenu(): JSX.Element {
     const inputFileElement = useRef<HTMLInputElement | null>(null);
     const { uploadImage } = usePostingDispatch();
     const { message } = rootContext.useAlert();
@@ -26,11 +27,13 @@ function MarkDownEditorMenu(): JSX.Element {
 
     return (
         <ContainerFlex $padding={0}>
-            <IconButton
-                color="light"
-                onClick={handleImageUploadClick}
-                iconNode={<ImageUploadIcon />}
-            />
+            <Tooltip title="이미지 업로드" placement="bottomLeft">
+                <IconButton
+                    color="light"
+                    onClick={handleImageUploadClick}
+                    iconNode={<ImageUploadIcon />}
+                />
+            </Tooltip>
             <input
                 type="file"
                 accept="image/*"
@@ -42,4 +45,4 @@ function MarkDownEditorMenu(): JSX.Element {
     );
 }
 
-export default React.memo(MarkDownEditorMenu);
+export default React.memo(MarkDownHelperMenu);

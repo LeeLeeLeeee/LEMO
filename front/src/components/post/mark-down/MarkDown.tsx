@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import ContainerFlex from '@/components/common/ContainerFlex';
 import { CombinedState } from '@/stores/interface';
 
-import MarkDownEditorMenu from './MarkDownEditorMenu';
 import MarkDownPreview from './MarkDownPreview';
 import MarkDownEditor from './MarkDownEditor';
 
@@ -24,7 +23,7 @@ const ResizeHandler = styled.span`
 function MarkDown(): JSX.Element {
     const wrapperElement = useRef<any>();
     const [size, setSize] = useState({
-        width: 700,
+        width: 1000,
         height: 0,
     });
 
@@ -39,7 +38,7 @@ function MarkDown(): JSX.Element {
         const { clientX } = event;
         setSize((_size) => ({
             ..._size,
-            width: Math.min(clientX - left, 700),
+            width: Math.min(clientX - left, 1000),
         }));
     };
 
@@ -52,7 +51,6 @@ function MarkDown(): JSX.Element {
 
     return (
         <>
-            <MarkDownEditorMenu />
             <ContainerFlex
                 $gap={3}
                 ref={wrapperElement}
@@ -63,7 +61,7 @@ function MarkDown(): JSX.Element {
                         className="relative !h-full"
                         width={size.width}
                         height={size.height}
-                        maxConstraints={[700, Infinity]}
+                        maxConstraints={[1000, Infinity]}
                         axis="x"
                         handle={preview ? <ResizeHandler /> : <></>}
                         onResize={(e: SyntheticEvent) => onResize(e)}

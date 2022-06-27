@@ -24,8 +24,14 @@ import Modal from '../common/modal/Modal';
 import ContainerFlex from '../common/ContainerFlex';
 import Button from '../common/button/Button';
 
+type ProfileImageType = {
+    file?: Blob;
+    previewLink?: string;
+};
+
 interface Props {
     defaultImagePath?: string;
+    setUploadedFile?: React.Dispatch<ProfileImageType>;
 }
 
 const EditAbleProfileImage = styled.span`
@@ -116,21 +122,16 @@ async function canvasPreview(
     ctx.restore();
 }
 
-type ProfileImageType = {
-    file?: Blob;
-    previewLink?: string;
-};
-
 function ProfileImageEditor(props: Props) {
-    const { defaultImagePath } = props;
+    const { defaultImagePath, setUploadedFile } = props;
     const fileInputElement = useRef<HTMLInputElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
-    const [imgSrc, setImgSrc] = useState(defaultImagePath);
+    const [imgSrc, setImgSrc] = useState<any>(undefined);
     const [scale, setScale] = useState(1);
     const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
     const [completedImage, setCompletedImage] = useState<ProfileImageType>({
         file: undefined,
-        previewLink: undefined,
+        previewLink: defaultImagePath,
     });
     const [crop, setCrop] = useState<Crop>();
 
@@ -139,6 +140,12 @@ function ProfileImageEditor(props: Props) {
             file: undefined,
             previewLink: undefined,
         });
+        if (setUploadedFile) {
+            setUploadedFile({
+                file: undefined,
+                previewLink: undefined,
+            });
+        }
     }, []);
 
     const handleImageUploadClick = useCallback(() => {
@@ -221,6 +228,12 @@ function ProfileImageEditor(props: Props) {
             file: blobFile,
             previewLink,
         });
+        if (setUploadedFile) {
+            setUploadedFile({
+                file: blobFile,
+                previewLink,
+            });
+        }
         setImgSrc(undefined);
     }, [completedCrop]);
 
