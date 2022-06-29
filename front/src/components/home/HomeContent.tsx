@@ -51,18 +51,20 @@ function HomeContent(): JSX.Element {
     const homeElement = useRef<null | HTMLDivElement>(null);
     const { getFeedsThunk } = usePostingDispatch();
 
-    const feeds = useSelector(
-        (state: CombinedState) => state.posting.feeds.list
-    );
+    const { feeds, user } = useSelector((state: CombinedState) => ({
+        feeds: state.posting.feeds.list,
+        user: state.auth.user,
+    }));
 
     useEffect(() => {
+        if (user === undefined) return () => {};
         let intersectionObserver: any;
         if (intersectionElement.current !== null) {
             intersectionObserver = new IntersectionObserver(
                 (entries) => {
                     const [entry] = entries;
                     if (entry?.isIntersecting) {
-                        getFeedsThunk(2);
+                        getFeedsThunk(2, user.id);
                     }
                 },
                 { threshold: [0.5] }
@@ -74,7 +76,7 @@ function HomeContent(): JSX.Element {
         return () => {
             intersectionObserver.disconnect();
         };
-    }, []);
+    }, [user]);
 
     return (
         <HomeContentWrapper

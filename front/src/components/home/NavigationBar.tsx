@@ -3,12 +3,15 @@ import React from 'react';
 import tw, { theme } from 'twin.macro';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
-import { EmailIcon, GithubIcon, PencilIcon, PhoneIcon } from '@/icons';
+import { GithubIcon, PencilIcon } from '@/icons';
+import { CombinedState } from '@/stores/interface';
 
 import ContainerFlex from '../common/ContainerFlex';
 import withHoverAnime from '../hoc/withHoverAnime';
 import CircleImage from '../common/CircleImage';
+import Tooltip from '../common/Tooltip';
 
 const NavigationWrapper = tw(ContainerFlex)`
     w-64
@@ -38,6 +41,9 @@ const WritePostLabelHOC = withHoverAnime(WritePostLabel, {
 
 function NavigationBar(): JSX.Element {
     const router = useRouter();
+    const { user = {} } = useSelector((state: CombinedState) => ({
+        user: state.auth.user,
+    }));
     return (
         <NavigationWrapper $gap={3} $direction="column">
             <ProfileCard
@@ -51,18 +57,24 @@ function NavigationBar(): JSX.Element {
                 color="white"
                 $items="center"
             >
-                <CircleImage imagePath="/스폰지밥.PNG" />
+                <CircleImage imagePath={user.profileImage} />
                 <ContainerFlex tw="self-stretch" $direction="column">
-                    <NameTitle>이영현</NameTitle>
-                    <SubTitle>Web Developer</SubTitle>
+                    <NameTitle>{user.name}</NameTitle>
+                    <SubTitle>
+                        {user.description || '자신을 소개해주세요'}
+                    </SubTitle>
                     <ContainerFlex
                         tw="self-stretch mt-2"
                         $justify="start"
                         $gap={2}
                     >
-                        <GithubIcon />
-                        <PhoneIcon />
-                        <EmailIcon />
+                        {user.githubLink && (
+                            <Tooltip title={user.githubLink} placement="bottom">
+                                <span>
+                                    <GithubIcon />
+                                </span>
+                            </Tooltip>
+                        )}
                     </ContainerFlex>
                 </ContainerFlex>
             </ProfileCard>

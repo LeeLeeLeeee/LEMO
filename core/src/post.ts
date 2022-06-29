@@ -31,11 +31,12 @@ export default class Post implements ApiHandler<PostDto> {
         return response;
     }
 
-    async getFeeds(pageSize: number, cursor: number) {
+    async getFeeds(pageSize: number, cursor: number, authorID?: number) {
         const response = await serverProxy.get<{ posts: PostDto[], cursor: number }>(`${this.apiName}/feed`, {
             params: {
                 cursor,
                 pageSize,
+                authorID,
             },
         });
         return response.data;
