@@ -4,6 +4,7 @@ import RcTooltip from 'rc-tooltip';
 import type { TooltipProps as RcTooltipProps } from 'rc-tooltip/lib/Tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
 import styled from '@emotion/styled';
+import tw from 'twin.macro';
 
 export type TooltipPlacement =
     | 'top'
@@ -20,15 +21,19 @@ export type TooltipPlacement =
     | 'rightBottom';
 
 export interface TooltipProps
-    extends Partial<Omit<RcTooltipProps, 'arrowContent' | 'overlay'>> {
-    title: string;
+    extends Partial<Omit<RcTooltipProps, 'arrowContent'>> {
     placement?: TooltipPlacement;
     gap?: number;
-    color?: 'white' | 'black';
+    trigger?: 'hover' | 'click';
 }
 
 const commonTooltipStyle = { border: '0px' };
-const TooltipArrow = styled.span<{ color: any }>`
+
+const PopoverWrapper = tw.div`
+    
+`;
+
+const TooltipArrow = styled.span`
     width: 0px;
     height: 0px;
     position: absolute;
@@ -36,38 +41,37 @@ const TooltipArrow = styled.span<{ color: any }>`
     &.right {
         border-top: 6px solid transparent;
         border-bottom: 6px solid transparent;
-        border-right: 6px solid ${(props) => props.color};
-
+        border-right: 6px solid white;
         top: -6px;
     }
     &.left {
         border-top: 6px solid transparent;
         border-bottom: 6px solid transparent;
-        border-left: 6px solid ${(props) => props.color};
+        border-left: 6px solid white;
         top: -6px;
         left: -6px;
     }
     &.top {
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
-        border-top: 6px solid ${(props) => props.color};
+        border-top: 6px solid white;
         top: -6px;
         left: -6px;
     }
     &.bottom {
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
-        border-bottom: 6px solid ${(props) => props.color};
+        border-bottom: 6px solid white;
         left: -6px;
     }
 `;
 
-function Tooltip(props: TooltipProps, ref: any): JSX.Element {
+function Popover(props: TooltipProps, ref: any): JSX.Element {
     const {
-        title = '',
-        color = 'black',
         placement = 'right',
+        overlay,
         gap = 5,
+        trigger = 'click',
         ...rest
     } = props;
     const arrowPositionMatched = placement
@@ -77,12 +81,6 @@ function Tooltip(props: TooltipProps, ref: any): JSX.Element {
     const arrowPosition = arrowPositionMatched
         ? arrowPositionMatched[0]
         : 'left';
-
-    const colorTooltipStyle =
-        color === 'white'
-            ? { backgroundColor: 'white' }
-            : { backgroundColor: 'rgba(0, 0, 0, .6)', color: 'white' };
-    const tooltipStyle = { ...commonTooltipStyle, ...colorTooltipStyle };
 
     let offset: any[];
 
@@ -111,22 +109,18 @@ function Tooltip(props: TooltipProps, ref: any): JSX.Element {
 
     return (
         <RcTooltip
-            overlayInnerStyle={tooltipStyle}
-            arrowContent={
-                <TooltipArrow
-                    className={arrowPosition}
-                    color={color === 'white' ? 'white' : 'rgba(0, 0, 0, 0.6)'}
-                />
-            }
+            animation="zoom"
+            overlayInnerStyle={commonTooltipStyle}
+            arrowContent={<TooltipArrow className={arrowPosition} />}
             align={{ offset }}
-            trigger={['hover']}
+            trigger={[trigger]}
             placement={placement}
-            overlay={title}
+            overlay={<PopoverWrapper>{overlay}</PopoverWrapper>}
             {...rest}
             ref={ref}
         />
     );
 }
 
-Tooltip.displayName = 'Tooltip';
-export default React.forwardRef(Tooltip);
+Popover.displayName = 'Popover';
+export default React.forwardRef(Popover);

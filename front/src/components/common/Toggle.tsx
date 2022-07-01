@@ -22,11 +22,11 @@ interface Props {
     onToggleClick: () => void;
 }
 
-function Toggle(props: Props): JSX.Element {
+function Toggle(props: Props, ref: any): JSX.Element {
     const { isOn, onToggleClick } = props;
 
     return (
-        <ToggleWrapper onClick={onToggleClick}>
+        <ToggleWrapper ref={ref} onClick={onToggleClick}>
             <StatusBall
                 className={
                     !isOn ? 'bg-secondary/25' : 'bg-primary translate-x-[27px]'
@@ -36,4 +36,4 @@ function Toggle(props: Props): JSX.Element {
     );
 }
 
-export default React.memo(Toggle);
+export default React.memo(React.forwardRef(Toggle));
